@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101a20">
+  <meta name="description" content="An empty city. A familiar stranger. Play the opening of Chasing Shadows, an atmospheric single-player mystery.">
+  <title>Chasing Shadows — The Last Stop</title>
+  <link rel="icon" type="image/svg+xml" href="./mark.svg">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./src/main.js"></script>
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="world" tabindex="0" aria-label="Chasing Shadows game. Move with A and D or arrow keys. Space to jump. E to interact. J opens the journal. Escape pauses."></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="wordmark" href="#" id="home-link" aria-label="Pause Chasing Shadows">
+        <svg viewBox="0 0 32 38" aria-hidden="true"><path d="M16 2 3 30h26L16 2Z"/><path d="M16 13v22M9 25h14"/></svg>
+        <span>CHASING SHADOWS</span>
+      </a>
+      <div class="top-actions">
+        <button class="icon-button" id="sound-button" aria-label="Enable sound" aria-pressed="false" title="Sound (M)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5 5 9H2v6h3l5 4V5Z"/><path class="sound-wave" d="M14 8c3 2 3 6 0 8m3-11c5 4 5 10 0 14"/><path class="sound-slash" d="m15 9 6 6m0-6-6 6"/></svg>
+        </button>
+        <button class="icon-button" id="fullscreen-button" aria-label="Enter fullscreen" title="Fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button>
+        <button class="icon-button in-game" id="pause-button" aria-label="Pause game" title="Pause (Esc)" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14m8-14v14"/></svg></button>
+      </div>
+    </header>
+
+    <section id="title-screen" class="title-screen" aria-labelledby="game-title">
+      <div class="title-copy">
+        <p class="eyebrow"><span class="small-line"></span> A SINGLE-PLAYER MYSTERY</p>
+        <h1 id="game-title">CHASING<br><span>SHADOWS</span></h1>
+        <p class="tagline">Everyone is gone.<br>Your shadow remembers.</p>
+        <div class="title-buttons">
+          <button class="primary-button" id="begin-button"><span>Begin the journey</span><span aria-hidden="true">⟶</span></button>
+          <button class="text-button" id="continue-button" hidden>Continue from last light <span aria-hidden="true">↗</span></button>
+        </div>
+        <p class="chapter-caption">CHAPTER 01 <span>—</span> THE LAST STOP</p>
+      </div>
+      <p class="title-whisper" aria-hidden="true">Something stayed behind.</p>
+      <footer class="title-footer"><span>AN EMPTY CITY. A FAMILIAR STRANGER.</span><button class="text-button" id="title-controls">How to play <span aria-hidden="true">↗</span></button><span class="version">OPENING · v0.1</span></footer>
+    </section>
+
+    <div id="game-hud" class="game-hud" hidden>
+      <div class="location-block"><p class="eyebrow" id="location">OLD QUARTER · TRAM TERMINUS</p><p id="objective">Find a way out of the tram.</p></div>
+      <button class="journal-button" id="journal-button" title="Journal (J)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5a2 2 0 0 1 0-4h14M8 3v14m3-9h5m-5 4h5"/></svg><span>Journal</span><kbd>J</kbd><i id="journal-dot" hidden></i></button>
+      <div class="chapter-marker"><span>01</span><span>THE LAST STOP</span></div>
+      <div class="controls-strip"><span><kbd>A</kbd><kbd>D</kbd> move</span><span><kbd>SPACE</kbd> jump</span><span><kbd>E</kbd> interact</span><span class="mouse-hint">or click the ground to walk</span></div>
+      <div id="interaction" class="interaction" hidden><kbd>E</kbd><span id="interaction-label"></span></div>
+      <div id="subtitle" class="subtitle" role="status" aria-live="polite"></div>
+      <div id="save-indicator" class="save-indicator" aria-live="polite"></div>
+    </div>
+
+    <section id="lamp-controls" class="puzzle-panel" aria-label="Lamp puzzle" hidden>
+      <p class="eyebrow">01 / A BORROWED REACH</p><h2>Light changes what you can reach.</h2>
+      <p>Bring your shadow’s hand to the shadow of the latch.</p>
+      <label for="lamp-slider">Slide the maintenance lamp <span><kbd>←</kbd> <kbd>→</kbd></span></label>
+      <input id="lamp-slider" type="range" min="1900" max="2220" step="1" value="2180">
+      <div class="puzzle-status"><span id="lamp-status" role="status">The shadows are apart.</span><button class="text-button" id="leave-lamp">Step away <kbd>E</kbd></button></div>
+      <div class="alignment-track"><div id="alignment-fill"></div></div>
+    </section>
+
+    <section id="panel-controls" class="puzzle-panel access-panel" aria-label="Maintenance access puzzle" hidden>
+      <p class="eyebrow">02 / A FAMILIAR RHYTHM</p><h2>Your hands almost remember.</h2>
+      <p>Watch the shadow. Repeat its four gestures.</p>
+      <p id="sequence-cue" class="sequence-cue" aria-live="polite"></p>
+      <div class="symbols"><button data-symbol="0" aria-label="Circle">○<kbd>1</kbd></button><button data-symbol="1" aria-label="Line">│<kbd>2</kbd></button><button data-symbol="2" aria-label="Triangle">△<kbd>3</kbd></button></div>
+      <div class="sequence-progress" id="sequence-progress" role="status" aria-label="0 of 4 gestures entered"><i></i><i></i><i></i><i></i></div>
+      <div class="puzzle-status"><button class="text-button" id="show-sequence">Show the whole rhythm</button><button class="text-button" id="leave-panel">Step away <kbd>E</kbd></button></div>
+    </section>
+
+    <div id="touch-controls" class="touch-controls" hidden aria-label="Touch game controls"><div><button data-hold="left" aria-label="Walk left">←</button><button data-hold="right" aria-label="Walk right">→</button></div><div><button data-action="jump" aria-label="Jump">↑</button><button data-action="interact" aria-label="Interact">E</button></div></div>
+
+    <dialog id="pause-dialog" class="modal pause-modal" aria-labelledby="pause-title"><form method="dialog"><p class="eyebrow">TAKE YOUR TIME</p><h2 id="pause-title">The city can wait.</h2><p class="modal-description">Your shadow isn’t going anywhere.<br>Probably.</p><button class="primary-button" id="resume-button" value="resume">Return to the city <span aria-hidden="true">⟶</span></button><button class="secondary-button" id="pause-journal" type="button">Open journal</button><button class="text-button" id="help-button" type="button">Controls & settings</button><button class="text-button" id="menu-button" type="button">Return to title</button><p class="quiet-note" id="checkpoint-note">Progress saves at each discovery.</p></form></dialog>
+
+    <dialog id="help-dialog" class="modal help-modal" aria-labelledby="help-title"><button class="close-button" aria-label="Close controls" data-close>×</button><p class="eyebrow">BEFORE YOU GO</p><h2 id="help-title">Learn to follow.</h2><dl class="controls-list"><div><dt>Walk</dt><dd><kbd>A</kbd> <kbd>D</kbd> / <kbd>←</kbd> <kbd>→</kbd></dd></div><div><dt>Jump</dt><dd><kbd>SPACE</kbd> / <kbd>W</kbd> / <kbd>↑</kbd></dd></div><div><dt>Interact / step away</dt><dd><kbd>E</kbd></dd></div><div><dt>Journal / pause</dt><dd><kbd>J</kbd> / <kbd>ESC</kbd></dd></div><div><dt>Sound / fullscreen</dt><dd><kbd>M</kbd> / <kbd>F</kbd></dd></div></dl><p class="quiet-note">You can also click the ground to walk. Hold the arrow buttons on touch screens. There is no combat or time limit in this opening.</p><label class="setting-row"><span>Reduce ambient motion</span><input type="checkbox" id="reduced-motion"></label><button class="secondary-button" data-close>Understood</button></dialog>
+
+    <dialog id="journal-dialog" class="modal journal-modal" aria-labelledby="journal-title"><button class="close-button" aria-label="Close journal" data-close>×</button><p class="eyebrow">THINGS THAT STAY</p><h2 id="journal-title">A record of the unfamiliar.</h2><p class="journal-intro">If I forget again, let this be enough.</p><div id="journal-entries"></div><p class="journal-page">CHASING SHADOWS <span>PERSONAL RECORD / 01</span></p></dialog>
+
+    <dialog id="photo-dialog" class="modal photo-modal" aria-labelledby="photo-title"><p class="eyebrow">FOUND / A STAFF PHOTOGRAPH</p><h2 id="photo-title">You were here before.</h2><div class="photograph" id="photograph" role="img" aria-label="An old staff photograph: four transit workers. One wears your distinctive coat. The shadow reaches for the person beside you."></div><p id="photo-description">The same coat. The same torn cuff.<br>You are standing among people you don’t remember.</p><button class="primary-button" id="photo-next">Look closer <span aria-hidden="true">⟶</span></button></dialog>
+
+    <dialog id="ending-dialog" class="modal ending-modal" aria-labelledby="ending-title"><p class="eyebrow">CHAPTER 01 / END OF OPENING</p><div class="ending-mark" aria-hidden="true">◒</div><h2 id="ending-title">Someone you knew.</h2><p>Your shadow reaches for the person beside you.<br>For a moment, its hand won’t stop trembling.</p><p class="ending-question">Who did you come back for?</p><button class="primary-button" id="keep-exploring">Stay a little longer <span aria-hidden="true">⟶</span></button><button class="text-button" id="replay-button">Replay the opening</button><p class="quiet-note">Chasing Shadows · A first playable opening</p></dialog>
+    <div id="screen-reader-status" class="sr-only" role="status" aria-live="polite"></div>
+    <p id="fatal-error" class="fatal-error" hidden></p>
+  </main>
+</body>
+</html>
