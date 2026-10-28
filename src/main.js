@@ -42,6 +42,8 @@ const game = new Game((type, value) => {
   if (type === 'sequence' || type === 'sequence-wrong') updateSequence();
   if (type === 'photo') {
     photoStage = 0; $('photograph').innerHTML = photographSVG(); $('photograph').classList.remove('remembering');
+    $('photograph').setAttribute('aria-label', 'An old staff photograph: four transit workers. One wears your distinctive coat, with its torn cuff.');
+    $('photo-dialog').scrollTop = 0;
     $('photo-title').textContent = 'You were here before.';
     $('photo-description').textContent = 'The same coat. The same torn cuff. You are standing among people you don’t remember.';
     $('photo-next').firstChild.textContent = 'Look closer ';
@@ -164,6 +166,7 @@ document.querySelectorAll('dialog').forEach(dialog => {
 $('photo-next').addEventListener('click', () => {
   if (photoStage === 0) {
     photoStage = 1; $('photograph').classList.add('remembering');
+    $('photograph').setAttribute('aria-label', 'Your shadow’s hand reaches across the photograph to the person beside you.');
     $('photo-title').textContent = 'It doesn’t reach for you.';
     $('photo-description').textContent = 'Its hand settles on the person beside you. You don’t recognise them. Your shadow does.';
     $('photo-next').firstChild.textContent = 'Remember this ';
@@ -183,7 +186,8 @@ window.addEventListener('keydown', event => {
   if (!game.started || game.paused) return;
   if (key === 'j' && !event.repeat) { event.preventDefault(); journal(); return; }
   if (key === 'e' && !event.repeat) { event.preventDefault(); game.interact(); return; }
-  if (event.target instanceof HTMLInputElement) return;
+  if (event.target instanceof HTMLInputElement && !['a', 'd'].includes(key)) return;
+  if (event.target instanceof HTMLButtonElement && [' ', 'enter'].includes(key)) return;
   if (moveKeys.has(key)) { event.preventDefault(); game.input[moveKeys.get(key)] = true; }
   if ([' ', 'w', 'arrowup'].includes(key)) { event.preventDefault(); if (!event.repeat) game.jump(); }
   if (game.mode === 'panel' && ['1', '2', '3'].includes(key) && !event.repeat) { event.preventDefault(); game.enterSymbol(Number(key) - 1); }
@@ -224,7 +228,7 @@ try {
       $('subtitle').classList.toggle('visible', game.time < subtitleUntil && !game.paused && game.mode === 'walk');
       $('save-indicator').classList.toggle('visible', game.time < saveUntil);
       if (game.mode === 'lamp') {
-        if (document.activeElement !== $('lamp-slider')) $('lamp-slider').value = String(Math.round(game.lampX));
+        $('lamp-slider').value = String(Math.round(game.lampX));
         const status = game.alignmentDistance < 25 ? 'Hold the light. It’s reaching…' : game.alignmentDistance < 80 ? 'Almost. A little further.' : 'The shadows are apart.';
         if ($('lamp-status').textContent !== status) $('lamp-status').textContent = status;
         $('alignment-fill').style.width = `${game.alignment * 100}%`;

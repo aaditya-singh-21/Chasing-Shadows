@@ -5,7 +5,7 @@ export const ACCESS_SEQUENCE = [0, 2, 1, 0];
 export const SYMBOLS = ['Circle', 'Line', 'Triangle'];
 export const NOTES = {
   waking: { title: 'The last stop', text: 'An empty tram. An empty city. Someone left their bag behind, as if they expected to come back. I can’t remember getting on.' },
-  shadow: { title: 'One step too many', text: 'I stopped. My shadow didn’t. It turned toward a door I hadn’t noticed. I am certain I saw it.' },
+  shadow: { title: 'A movement of its own', text: 'It turned its head. I didn’t. For a moment it stayed behind, looking toward the platform. I am certain I saw it.' },
   light: { title: 'A borrowed reach', text: 'I moved the lamp. It reached for the shadow of the latch, and the real latch moved. My hands never touched it.' },
   knock: { title: 'Two. Then one.', text: 'It knew this door. Two knocks, a pause, then one more. It waited for an answer. It waited longer than I did.' },
   access: { title: 'A familiar rhythm', text: 'Circle. Triangle. Line. Circle. The maintenance door opened. How many times have these hands done that before?' },
@@ -125,7 +125,7 @@ export class Game {
       this.say('Nothing. But it still seems to be listening.');
     } else if (target.id === 'panel') {
       this.mode = 'panel'; this.player.x = 5110; this.player.vx = 0; this.sequenceInput = []; this.sequenceTime = 0;
-      this.shadow.mode = 'code'; this.emit('puzzle', 'panel');
+      this.shadow.mode = 'code'; this.shadow.x = 5220; this.shadow.y = FLOOR; this.shadow.timer = 0; this.emit('puzzle', 'panel');
     } else if (target.id === 'photo') {
       this.emit('photo');
     } else if (target.id === 'mug') {
@@ -232,7 +232,7 @@ export class Game {
     if (p.x > 1450 && !this.flags.deviationSeen) {
       this.discover('deviationSeen', 'shadow');
       this.shadow.mode = 'linger'; this.shadow.timer = 0; this.shadow.x = p.x + 120;
-      this.say('Wait. I stopped.', 4); this.emit('sound', 'unease');
+      this.say('It turned. I didn’t.', 4); this.emit('sound', 'unease');
     }
     if (p.x > 3980 && !this.flags.knocked) {
       this.discover('knocked', 'knock'); this.shadow.mode = 'knock'; this.shadow.timer = 0;

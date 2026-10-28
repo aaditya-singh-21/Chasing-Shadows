@@ -71,6 +71,13 @@ test('pause freezes movement, puzzle progress, and story time', () => {
   assert.equal(game.player.x, x); assert.equal(game.time, time); assert.equal(game.alignment, 0);
 });
 
+test('the access demonstration stays visible even when the earlier knock has not finished', () => {
+  const game = new Game(); game.start({ version: 1, flags: { gateOpen: true }, x: 5120 });
+  game.shadow.mode = 'knock'; game.shadow.x = 4310;
+  game.interact();
+  assert.equal(game.shadow.mode, 'code'); assert.equal(game.shadow.x, 5220);
+});
+
 test('checkpoint restore preserves discoveries without replaying them', () => {
   const game = atPlatform();
   game.flags.gateOpen = true; game.flags.knocked = true; game.flags.panelOpen = true; game.player.x = 5920;
