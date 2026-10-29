@@ -1,0 +1,461 @@
+@media (pointer: coarse) {
+  .touch-controls:not([hidden]) {
+    display: flex;
+  }
+  .controls-strip .mouse-hint {
+    display: none;
+  }
+  .game-hud .controls-strip {
+    display: none;
+  }
+  .subtitle {
+    bottom: 24%;
+  }
+  .interaction {
+    bottom: 35%;
+  }
+}
+
+@media (max-height: 650px) and (min-width: 700px) {
+  .topbar {
+    padding-top: 20px;
+  }
+  .title-copy {
+    top: 20%;
+  }
+  h1 {
+    font-size: 54px;
+    margin-bottom: 15px;
+  }
+  .tagline {
+    font-size: 16px;
+    margin-bottom: 18px;
+  }
+  .title-copy .eyebrow {
+    margin-bottom: 13px;
+  }
+  .primary-button {
+    padding: 14px 21px;
+  }
+  .chapter-caption {
+    margin-top: 17px;
+  }
+  .location-block {
+    top: 90px;
+  }
+  .journal-button {
+    top: 90px;
+  }
+  .modal {
+    padding: 30px;
+  }
+  .puzzle-panel {
+    bottom: 15px;
+    padding: 15px 20px;
+  }
+  .puzzle-panel h2 {
+    font-size: 19px;
+  }
+  .puzzle-panel > p:not(.eyebrow) {
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 16px;
+  }
+  .title-footer {
+    bottom: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .topbar {
+    padding: 20px 6%;
+  }
+  .wordmark {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    gap: 8px;
+  }
+  .wordmark svg {
+    width: 20px;
+    height: 26px;
+  }
+  .top-actions {
+    gap: 4px;
+  }
+  .title-copy {
+    left: 8%;
+    top: 25%;
+  }
+  h1 {
+    font-size: clamp(43px, 10.5vw, 70px);
+  }
+  .title-copy .eyebrow {
+    font-size: 8px;
+  }
+  .tagline {
+    font-size: 18px;
+  }
+  .title-footer {
+    left: 8%;
+    right: 8%;
+    flex-wrap: wrap;
+    font-size: 7px;
+    line-height: 1.7;
+    gap: 8px;
+  }
+  .title-footer .text-button {
+    font-size: 9px;
+  }
+  .title-footer .version {
+    display: none;
+  }
+  .title-whisper {
+    bottom: 17%;
+    right: 8%;
+    font-size: 12px;
+  }
+  .title-screen {
+    background: linear-gradient(90deg, #0d1821dd, #101b2477 65%, transparent);
+  }
+  .location-block {
+    left: 6%;
+    top: 90px;
+  }
+  .location-block .eyebrow {
+    font-size: 7px;
+  }
+  .location-block #objective {
+    font-size: 14px;
+    max-width: 240px;
+  }
+  .journal-button {
+    top: auto;
+    bottom: 29px;
+    right: 6%;
+    font-size: 9px;
+  }
+  .journal-button kbd {
+    display: none;
+  }
+  .chapter-marker {
+    left: 6%;
+    bottom: 28px;
+    font-size: 7px;
+  }
+  .chapter-marker > span:first-child {
+    font-size: 23px;
+  }
+  .controls-strip {
+    display: none;
+  }
+  .subtitle {
+    font-size: 16px;
+    bottom: 23%;
+    width: 85%;
+  }
+  .interaction {
+    bottom: 36%;
+    font-size: 11px;
+  }
+  .puzzle-panel {
+    bottom: 28px;
+    width: 88%;
+    padding: 20px;
+  }
+  .puzzle-panel h2 {
+    font-size: 21px;
+  }
+  .modal {
+    padding: 30px 26px;
+  }
+  .modal h2 {
+    font-size: 29px;
+  }
+  .journal-page {
+    font-size: 7px;
+    gap: 10px;
+  }
+  .photo-modal {
+    padding: 30px 22px;
+  }
+  .photo-modal .photograph {
+    padding: 8px 8px 20px;
+  }
+  .ending-modal h2 {
+    font-size: 32px;
+  }
+  .save-indicator {
+    bottom: 70px;
+  }
+  .touch-controls {
+    bottom: 105px;
+  }
+}
+
+@media (max-width: 700px) {
+  .puzzle-panel {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+  .photo-modal {
+    padding: 26px 22px;
+  }
+  .photo-modal .photograph svg {
+    max-height: 30vh;
+  }
+}
+
+@media (max-height: 550px) {
+  .title-copy {
+    top: 18%;
+  }
+  .title-copy .eyebrow {
+    font-size: 7px;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 44px;
+    margin-bottom: 12px;
+  }
+  .tagline {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  .title-buttons {
+    gap: 10px;
+  }
+  .title-buttons .primary-button {
+    padding: 13px 20px;
+    min-width: 220px;
+  }
+  .chapter-caption {
+    font-size: 7px;
+    margin-top: 14px;
+  }
+  .title-footer {
+    bottom: 13px;
+  }
+  .title-whisper {
+    display: none;
+  }
+  .puzzle-panel {
+    padding: 12px 16px;
+    bottom: 14px;
+  }
+  .puzzle-panel .eyebrow {
+    font-size: 7px;
+    margin-bottom: 5px;
+  }
+  .puzzle-panel h2 {
+    display: none;
+  }
+  .puzzle-panel > p:not(.eyebrow) {
+    font-size: 10px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .puzzle-panel label {
+    font-size: 9px;
+  }
+  .puzzle-panel input[type='range'] {
+    margin: 14px 0;
+  }
+  .symbols {
+    gap: 12px;
+    margin: 8px 0;
+  }
+  .symbols button {
+    width: 47px;
+    height: 42px;
+    font-size: 24px;
+  }
+  .symbols kbd {
+    left: 18px;
+    font-size: 7px;
+  }
+  .sequence-progress {
+    margin: 8px 0;
+  }
+  .sequence-cue {
+    font-size: 10px !important;
+    min-height: 15px !important;
+  }
+  .puzzle-status .text-button {
+    font-size: 8px;
+  }
+  .controls-strip {
+    bottom: 16px;
+    gap: 12px;
+    font-size: 9px;
+  }
+  .chapter-marker {
+    bottom: 53px;
+  }
+  .subtitle {
+    font-size: 15px;
+  }
+}
+
+@media (max-height: 450px) {
+  .title-footer > span {
+    display: none;
+  }
+  .title-footer .text-button {
+    margin-left: 0;
+  }
+  .title-copy {
+    top: 17%;
+    left: 7%;
+  }
+  .title-copy .eyebrow {
+    margin-bottom: 7px;
+  }
+  h1 {
+    font-size: 39px;
+    margin-bottom: 8px;
+  }
+  .tagline {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  .chapter-caption {
+    display: none;
+  }
+  .title-buttons .primary-button {
+    padding: 11px 18px;
+  }
+  .title-footer {
+    left: auto;
+    right: 4%;
+  }
+  .location-block {
+    top: 74px;
+  }
+  .journal-button {
+    top: 74px;
+    bottom: auto;
+  }
+  .game-hud .chapter-marker,
+  .game-hud .controls-strip {
+    display: none;
+  }
+  .topbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
+@media (max-width: 700px) {
+  .puzzle-panel {
+    top: 150px;
+    bottom: auto;
+    padding: 14px 18px;
+  }
+  .puzzle-panel .eyebrow {
+    font-size: 7px;
+    margin-bottom: 6px;
+  }
+  .puzzle-panel h2 {
+    font-size: 19px;
+    margin-bottom: 8px;
+  }
+  .puzzle-panel > p:not(.eyebrow) {
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+  .puzzle-panel label {
+    font-size: 9px;
+  }
+  .puzzle-panel input[type='range'] {
+    margin: 16px 0;
+  }
+  .puzzle-status {
+    font-size: 9px;
+  }
+  .puzzle-status .text-button {
+    font-size: 8px;
+  }
+}
+
+@media (max-height: 550px) and (max-width: 700px) {
+  .puzzle-panel {
+    top: 145px;
+  }
+  .puzzle-panel > p:not(.eyebrow) {
+    margin-bottom: 6px;
+  }
+  .puzzle-panel input[type='range'] {
+    margin: 12px 0;
+  }
+}
+
+@media (max-height: 450px) {
+  .puzzle-panel {
+    top: 52px;
+    bottom: auto;
+    right: 3.6%;
+    left: auto;
+    transform: none;
+    width: 350px;
+    max-width: 48%;
+    padding: 10px 14px;
+  }
+  .puzzle-panel .eyebrow {
+    margin-bottom: 4px;
+  }
+  .puzzle-panel > p:not(.eyebrow) {
+    font-size: 9px;
+    margin-bottom: 5px;
+  }
+  .puzzle-panel label {
+    font-size: 8px;
+  }
+  .puzzle-panel input[type='range'] {
+    margin: 11px 0;
+  }
+  .puzzle-status {
+    font-size: 8px;
+  }
+  .puzzle-status .text-button {
+    font-size: 7px;
+  }
+}
+
+@media (max-width: 700px) {
+  .puzzle-panel h2 {
+    font-size: 18px;
+  }
+  .lamp-actions {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+  }
+  .lamp-actions .text-button {
+    font-size: 9px;
+  }
+}
+
+@media (max-height: 550px) {
+  .lamp-actions {
+    margin-bottom: 4px;
+    padding-bottom: 4px;
+  }
+  .lamp-actions .text-button {
+    font-size: 8px;
+  }
+  .puzzle-status > span {
+    font-size: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}

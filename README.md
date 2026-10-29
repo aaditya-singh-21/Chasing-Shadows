@@ -1,66 +1,90 @@
 # Chasing Shadows
 
-A playable first opening for an atmospheric, single-player 2D mystery. You wake on an empty tram. Your shadow knows the way out—and remembers people you don't.
+A browser-first, single-player 2D mystery. You wake on an empty tram. Your shadow knows the way out—and remembers people you don't.
 
-## Play locally
+The playable opening uses **TypeScript (strict mode), Phaser 4.2.1, and Vite**. The original Canvas game has been migrated to Phaser scenes, sprites, animations, camera, input, and Arcade Physics.
 
-Requires a current desktop browser and Node.js 20 or newer. There are no dependencies to install.
+## Run locally
+
+Development requires **Node.js 22.19+**. Players of a hosted build only need a modern browser with WebGL support.
 
 ```powershell
+npm ci
 npm start
 ```
 
-Open **http://127.0.0.1:4173** and select **Begin the journey**. Keep the terminal running while playing; Ctrl+C stops the server. If the port is already occupied, use the existing preview or set a different port:
+Open **http://127.0.0.1:4173**. Begin starts a new opening; Continue restores the existing checkpoint. Keep the terminal running during local play. Ctrl+C stops the server. To use another port:
 
 ```powershell
-$env:PORT = 4174
-npm start
+npm run dev -- --port 4174
 ```
 
-The game works offline once the local server is running. Artwork is drawn with Canvas/SVG, fonts are supplied by the operating system, and audio is synthesized with Web Audio. It makes no external requests and uses no remote assets or services. Browser storage holds a single local checkpoint; clearing site data clears the checkpoint. Continue uses the last checkpoint. Begin/replay starts a new opening and replaces that checkpoint.
+Dependencies are fetched during setup. Once installed, local play works without an internet connection. No game asset, font, analytics script, or audio sample is fetched from a CDN. Browser storage holds one local checkpoint, including the lamp's position and power. Existing v1 checkpoints from the original prototype are accepted on the same browser origin.
+
+## Build for a website
+
+```powershell
+npm run build
+npm run preview
+```
+
+Deploy the generated `dist/` folder to static hosting. The relative asset base supports hosting inside a subdirectory. No Node gameplay server or account system is required. A hosted version needs an initial network load; offline reopening is not automatically guaranteed because a service worker has not been added.
+
+The build performs strict type checking and enforces a **500 KiB gzip runtime-JavaScript budget**. Its compression figure is a build estimate, not a measured connection time. The production host needs to enable compression. Source maps are emitted for debugging and are excluded from that runtime budget.
 
 ## Controls
 
-| Action | Input |
-| --- | --- |
-| Move | A / D or left / right arrows |
-| Jump | Space, W, or up arrow |
-| Interact / leave a puzzle | E, or click the interaction prompt |
-| Journal | J |
-| Pause | Escape |
-| Sound | M or the speaker button; initially muted |
-| Fullscreen | F or the fullscreen button, where supported |
-| Walk to a point | Click the ground |
-| Slide the lamp | Drag its slider, use arrow keys while focused, or A / D |
-| Access symbols | Click the symbols or press 1 / 2 / 3 |
+| Action               | Input                                             |
+| -------------------- | ------------------------------------------------- |
+| Move                 | A / D or left / right arrows                      |
+| Jump                 | Space, W, or up arrow; hold for a higher jump     |
+| Interact / step away | E or the interaction prompt                       |
+| Journal / pause      | J / Escape                                        |
+| Sound / fullscreen   | M / F, or the corresponding buttons               |
+| Walk to a point      | Click the ground                                  |
+| Slide the lamp       | Drag its slider, use focused arrow keys, or A / D |
+| Lamp power           | L or its switch button                            |
+| Access symbols       | Click the symbols or press 1 / 2 / 3              |
 
-Touch devices also have hold-to-walk, jump, and interact buttons. The desktop/landscape composition is the primary presentation. Reduced ambient motion is available in Controls & settings and respects the operating system's initial preference. HTML dialogs and controls support keyboard focus; the spatial canvas game itself is not a full nonvisual mode.
+Touch controls provide movement, jump, and interaction. Desktop/landscape remains the primary presentation. Reduced ambient motion is available in settings. HTML dialogs support keyboard focus; the spatial game is not a complete nonvisual mode.
 
-## What's playable
+## The opening
 
-1. Wake inside Tram 07, jump over an abandoned suitcase, and open the door.
-2. See the shadow turn independently on the platform. Read the service notice or continue toward the shutter.
-3. Slide a maintenance lamp until your shadow reaches the latch's shadow. Hold alignment briefly to open the real shutter.
-4. Cross Mercer Street and see the shadow perform a remembered knock.
-5. Follow its four gestures at the maintenance access panel. A wrong attempt resets without punishment; a persistent sequence hint is available.
-6. Enter the maintenance room, examine the staff photograph, and discover who the shadow reaches for.
-7. Review discoveries in the journal, explore after the ending, or replay.
+Escape Tram 07, witness an independent shadow movement, operate a station shutter through its cast shadow, cross Mercer Street, follow a remembered knock, repeat an access rhythm, and examine a staff photograph.
 
-This is a compact first playable slice, not the full game or a measured 10–15 minute chapter. Final illustration/animation quality, long-term narrative, hardware minimums, and human playtest pacing remain to be established.
+Refinements in v0.2:
 
-## Development
+- The maintenance lamp remains usable after solving its puzzle. Adjusting it or switching it off never relocks the latched shutter. Its saved position and power survive reloads.
+- The player walks to the lamp's operating position instead of teleporting there. The interaction can be cancelled.
+- The access rhythm can be recalled after unlocking, with no duplicate journal rewards.
+- Variable-height jumps, coyote time, buffered input, controlled acceleration/braking, and landing poses make movement more forgiving.
+- The traveller has articulated arms/legs, a distinct storm coat, scarf, satchel, hair profile, boots, and torn cuff. The shadow shares its silhouette and adds gesture poses.
+- Static illustrations are generated once into chunked textures; Phaser draws the scene and resolves collisions.
+
+This is a compact first playable slice. Final art, target-device performance, and the original 10–15 minute pacing target still need human playtesting.
+
+## Code structure
+
+| Path                         | Responsibility                                                           |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| `src/main.ts`                | Boot Phaser and attach the interface                                     |
+| `src/scenes/OpeningScene.ts` | World assembly, colliders, camera, scene lifecycle                       |
+| `src/core/OpeningModel.ts`   | Story state and interaction orchestration                                |
+| `src/core/types.ts`          | Typed state, save format, and event contracts                            |
+| `src/data/opening.ts`        | Shared gameplay geometry, tuning, dialogue, puzzle data                  |
+| `src/entities/`              | Player and independent shadow presentation                               |
+| `src/systems/`               | Movement intent, puzzles, shadow behaviour, saving, input, audio         |
+| `src/art/`                   | Original texture illustration, character sheet, photograph               |
+| `src/ui/`                    | Accessible HTML interface, dialogs, and organised styles                 |
+| `tests/`                     | Pure TypeScript movement, puzzle, progression, and save regression tests |
+
+Phaser Arcade Physics handles integration and collisions. The pure movement module calculates intent/jump assistance so it can be tested without importing a browser engine. The story model and puzzle rules are independent of Phaser. Physical collision acceptance is checked in the browser.
 
 ```powershell
-npm test
 npm run check
+npm test
+npm run format:check
+npm run build
 ```
 
-- `src/game.js`: engine-independent movement, collisions, story progression, puzzles, checkpoint validation.
-- `src/render.js`: layered city, tram, lighting, character/shadow poses, and photograph artwork.
-- `src/main.js`: input, accessible UI, dialogs, journal, storage, and the animation loop.
-- `src/audio.js`: procedural ambience and interaction sounds.
-- `tests/game.test.mjs`: deterministic gameplay and checkpoint tests.
-- `docs/opening-design.md`: the implemented narrative and interaction contract.
-- `docs/verification.md`: checks performed and their limits.
-
-The server binds to loopback only. No build, account, or network connection is required. This prototype deliberately establishes the playable scene and shadow behaviour before choosing a desktop game-engine port.
+See `docs/opening-design.md` for the interaction contract, `docs/architecture.md` for migration decisions, and `docs/verification.md` for evidence and limits.

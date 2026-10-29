@@ -1,0 +1,186 @@
+.puzzle-panel {
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  z-index: 6;
+  width: 440px;
+  max-width: 90%;
+  padding: 20px 25px 15px;
+  background: #101c23f5;
+  border: 1px solid #c7b28b40;
+  box-shadow: 0 15px 80px #0007;
+  backdrop-filter: blur(15px);
+}
+
+.puzzle-panel .eyebrow {
+  font-size: 8px;
+  margin-bottom: 9px;
+}
+
+.puzzle-panel h2 {
+  font:
+    22px Georgia,
+    serif;
+  margin: 0 0 9px;
+  font-weight: 400;
+}
+
+.puzzle-panel > p:not(.eyebrow) {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #a8b9ae;
+  margin: 0 0 18px;
+}
+
+.puzzle-panel label {
+  font-size: 10px;
+  color: #c1c8b8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.puzzle-panel label kbd {
+  height: 18px;
+  min-width: 18px;
+}
+
+.puzzle-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  font-size: 10px;
+  color: var(--gold);
+}
+
+.puzzle-status .text-button {
+  font-size: 9px;
+}
+
+.alignment-track {
+  height: 2px;
+  background: #ffffff08;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.alignment-track div {
+  height: 100%;
+  background: var(--gold);
+  width: 0;
+  transition: width 0.15s;
+}
+
+.access-panel {
+  width: 390px;
+}
+
+.symbols {
+  display: flex;
+  justify-content: center;
+  gap: 17px;
+  margin: 12px 0;
+}
+
+.symbols button {
+  width: 65px;
+  height: 62px;
+  border: 1px solid #bca67655;
+  background: #ffffff03;
+  color: var(--gold);
+  font-family: Georgia, serif;
+  font-size: 31px;
+  position: relative;
+  padding-bottom: 10px;
+  transition: background 0.2s;
+}
+
+.symbols button:hover,
+.symbols button.cue {
+  background: #d4b78028;
+  border-color: #d4b780;
+}
+
+.symbols kbd {
+  position: absolute;
+  bottom: 4px;
+  left: 26px;
+  border: 0;
+  height: 11px;
+  font-size: 8px;
+  min-width: 10px;
+  padding: 0;
+  color: #a4b09e;
+}
+
+.sequence-cue {
+  min-height: 18px !important;
+  color: #dbc493 !important;
+  letter-spacing: 0.09em !important;
+  text-align: center;
+  font-size: 11px !important;
+  margin-bottom: 8px !important;
+}
+
+.sequence-progress {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+  margin: 16px 0;
+}
+
+.sequence-progress i {
+  width: 6px;
+  height: 6px;
+  border: 1px solid #d4b78088;
+  border-radius: 50%;
+}
+
+.sequence-progress i.filled {
+  background: var(--gold);
+}
+
+.puzzle-panel {
+  left: auto;
+  right: 3.6%;
+  transform: none;
+  width: 390px;
+}
+
+.puzzle-panel h2 {
+  font-size: 21px;
+}
+
+.lamp-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.lamp-actions .text-button {
+  font-size: 10px;
+}
+
+.puzzle-status {
+  align-items: flex-start;
+}
+
+.puzzle-status > span {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.5;
+}
+
+.puzzle-status .text-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}

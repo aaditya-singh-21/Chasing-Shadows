@@ -1,0 +1,217 @@
+.game-hud {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.location-block {
+  position: absolute;
+  left: 3.6%;
+  top: 109px;
+}
+
+.location-block .eyebrow {
+  font-size: 9px;
+  color: #a5b5af;
+  margin-bottom: 8px;
+  letter-spacing: 0.17em;
+}
+
+.location-block #objective {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  color: #e1ded1;
+  margin: 0;
+  max-width: 350px;
+  line-height: 1.45;
+  text-shadow: 0 2px 12px #000;
+}
+
+.journal-button {
+  position: absolute;
+  right: 3.8%;
+  top: 112px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  pointer-events: auto;
+  color: #bcc7be;
+  padding: 8px;
+}
+
+.journal-button svg {
+  width: 17px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 1;
+  fill: none;
+}
+
+.journal-button i {
+  width: 5px;
+  height: 5px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: absolute;
+  top: 4px;
+  right: 0;
+}
+
+.chapter-marker {
+  position: absolute;
+  left: 3.6%;
+  bottom: 74px;
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  color: #8c9e9b;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+}
+
+.chapter-marker > span:first-child {
+  font-family: Georgia, serif;
+  font-size: 26px;
+  color: #a5b0a7;
+  border-right: 1px solid #9daba83d;
+  padding-right: 12px;
+}
+
+.controls-strip {
+  position: absolute;
+  left: 3.6%;
+  bottom: 26px;
+  display: flex;
+  gap: 20px;
+  color: #9caaa5;
+  font-size: 10px;
+  align-items: center;
+}
+
+.controls-strip > span {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.controls-strip .mouse-hint {
+  color: #80948e;
+  font-size: 9px;
+  margin-left: 5px;
+}
+
+kbd {
+  font-family: inherit;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 5px;
+  border: 1px solid #bac5ad38;
+  border-radius: 3px;
+  font-size: 9px;
+  line-height: 1;
+  color: #c7d0c3;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.interaction {
+  position: absolute;
+  left: 50%;
+  bottom: 23%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+  background: #102027de;
+  border: 1px solid #d4c6a638;
+  padding: 11px 17px;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d5d9ca;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+
+.interaction kbd {
+  background: var(--gold);
+  color: #172124;
+  border-color: var(--gold);
+  height: 23px;
+  min-width: 23px;
+}
+
+.subtitle {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: min(640px, 80%);
+  font-family: Georgia, serif;
+  font-size: 19px;
+  line-height: 1.65;
+  letter-spacing: 0.015em;
+  color: #e8e3d3;
+  text-shadow: 0 2px 12px #000;
+  transition: opacity 0.6s;
+  opacity: 0;
+}
+
+.subtitle.visible {
+  opacity: 1;
+}
+
+.subtitle span {
+  background: #0a141ba6;
+  box-shadow: 0 0 18px 12px #0a141b44;
+}
+
+.save-indicator {
+  position: absolute;
+  right: 4%;
+  bottom: 28px;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: #b8b9a3;
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+
+.save-indicator.visible {
+  opacity: 1;
+}
+
+.touch-controls {
+  position: absolute;
+  inset: auto 20px 85px;
+  display: none;
+  justify-content: space-between;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.touch-controls > div {
+  display: flex;
+  gap: 12px;
+}
+
+.touch-controls button {
+  pointer-events: auto;
+  user-select: none;
+  touch-action: none;
+  background: #14232cb0;
+  border: 1px solid #d7c39250;
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  color: #d8d5b9;
+  font-size: 21px;
+}

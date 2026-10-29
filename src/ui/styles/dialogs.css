@@ -1,0 +1,287 @@
+dialog {
+  color: var(--paper);
+}
+
+.modal {
+  border: 1px solid #d1c9ac38;
+  border-radius: 2px;
+  background: linear-gradient(145deg, #1b2931, #101c24);
+  box-shadow: 0 30px 130px #0009;
+  padding: 44px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 36px);
+  overflow: auto;
+  width: 460px;
+  scrollbar-width: thin;
+  scrollbar-color: #6a7667 #17232b;
+}
+
+.modal::backdrop {
+  background: #060e16ba;
+  backdrop-filter: blur(9px);
+}
+
+.modal h2 {
+  font-family: Georgia, serif;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 0 0 20px;
+  letter-spacing: -0.02em;
+}
+
+.modal .eyebrow {
+  font-size: 9px;
+  margin-bottom: 17px;
+}
+
+.modal-description,
+.modal > p:not(.eyebrow):not(.quiet-note):not(.journal-page):not(.ending-question) {
+  font-size: 13px;
+  color: #aebcaf;
+  line-height: 1.8;
+}
+
+.pause-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.pause-modal h2 {
+  margin-bottom: 0;
+}
+
+.pause-modal .eyebrow {
+  margin-bottom: 0;
+}
+
+.pause-modal .modal-description {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 4px 0 15px;
+}
+
+.quiet-note {
+  font-size: 10px;
+  line-height: 1.8;
+  color: #8c9b91;
+  margin: 17px 0 0;
+}
+
+.close-button {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  background: transparent;
+  font-size: 25px;
+  color: #b4bdaf;
+  font-weight: 200;
+  padding: 4px 10px;
+}
+
+.controls-list {
+  margin: 25px 0;
+}
+
+.controls-list > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #d7cfa71a;
+  padding: 13px 0;
+  gap: 18px;
+}
+
+.controls-list dt {
+  font-size: 11px;
+  color: #bdc5b9;
+}
+
+.controls-list dd {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  color: #8d9e94;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  font-size: 11px;
+  color: #c4c9b8;
+}
+
+.setting-row input {
+  accent-color: var(--gold);
+  width: 17px;
+  height: 17px;
+}
+
+.help-modal .secondary-button {
+  width: 100%;
+}
+
+.journal-modal {
+  width: 620px;
+  background: linear-gradient(120deg, #263031, #1a2427);
+}
+
+.journal-modal h2 {
+  font-size: 31px;
+}
+
+.journal-intro {
+  font-family: Georgia, serif;
+  font-style: italic;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 23px;
+}
+
+.journal-entry {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.journal-entry .entry-number {
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: #bc9f70;
+}
+
+.journal-entry h3 {
+  font-family: Georgia, serif;
+  font-size: 21px;
+  font-weight: 400;
+  margin: 9px 0;
+}
+
+.journal-entry p {
+  color: #b9c0ad;
+  line-height: 1.8;
+  font-size: 12px;
+  margin: 0;
+}
+
+.journal-page {
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: #8d9c91;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.photo-modal {
+  width: 650px;
+  text-align: center;
+}
+
+.photo-modal .eyebrow {
+  justify-content: center;
+}
+
+.photo-modal .primary-button {
+  margin: 24px auto 0;
+}
+
+.photograph {
+  background: #b8b49e;
+  padding: 12px 12px 28px;
+  transform: rotate(-2deg);
+  margin: 28px 0 25px;
+  box-shadow: 0 15px 30px #0006;
+}
+
+.photograph svg {
+  width: 100%;
+  display: block;
+}
+
+.photograph.remembering {
+  transform: rotate(-1deg);
+}
+
+.photograph .photo-hand {
+  opacity: 0;
+  transition: opacity 1.5s;
+}
+
+.photograph.remembering .photo-hand {
+  opacity: 0.95;
+}
+
+.photo-modal #photo-description {
+  min-height: 48px;
+}
+
+.ending-modal {
+  text-align: center;
+  width: 540px;
+}
+
+.ending-modal .eyebrow {
+  justify-content: center;
+  font-size: 8px;
+}
+
+.ending-mark {
+  font-size: 58px;
+  color: #bfaa7e;
+  margin: 20px 0 27px;
+  line-height: 1;
+}
+
+.ending-modal h2 {
+  font-size: 39px;
+}
+
+.ending-question {
+  font:
+    italic 20px Georgia,
+    serif;
+  color: #d6c49c;
+  margin: 27px 0;
+}
+
+.ending-modal .primary-button {
+  margin: 28px auto 15px;
+}
+
+.ending-modal .text-button {
+  display: block;
+  margin: 0 auto;
+}
+
+.photo-modal {
+  width: 620px;
+  padding: 30px;
+}
+
+.photo-modal h2 {
+  margin-bottom: 16px;
+}
+
+.photo-modal .photograph {
+  margin: 20px 0 18px;
+  padding: 10px 10px 22px;
+}
+
+.photo-modal .photograph svg {
+  max-height: 30vh;
+}
+
+.photo-modal #photo-description {
+  font-size: 12px;
+  line-height: 1.6;
+  min-height: 38px;
+}
+
+.photo-modal .primary-button {
+  margin-top: 20px;
+}

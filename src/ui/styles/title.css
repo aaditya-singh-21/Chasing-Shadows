@@ -1,0 +1,88 @@
+.title-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(90deg, #0d1821ee 0%, #101b24b0 30%, #101b2433 55%, transparent 75%);
+}
+
+.title-copy {
+  position: absolute;
+  left: 10%;
+  top: 22%;
+}
+
+h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  font-size: clamp(48px, 5.9vw, 98px);
+  line-height: 1.07;
+  letter-spacing: 0.075em;
+  margin: 0 0 25px;
+  color: #ece9df;
+  text-shadow: 0 3px 28px #050c1155;
+}
+
+h1 span {
+  color: #c6cfc9;
+}
+
+.tagline {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(16px, 1.4vw, 22px);
+  line-height: 1.7;
+  color: #b7c1bd;
+  margin: 0 0 32px;
+}
+
+.title-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 17px;
+}
+
+.chapter-caption {
+  margin-top: 27px;
+  font-size: 9px;
+  letter-spacing: 0.19em;
+  color: #869896;
+}
+
+.chapter-caption span {
+  margin: 0 9px;
+  color: #b99864;
+}
+
+.title-whisper {
+  position: absolute;
+  right: 11%;
+  bottom: 22%;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  color: #b7c4bb99;
+}
+
+.title-footer {
+  position: absolute;
+  bottom: 30px;
+  left: 3.5%;
+  right: 3.5%;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: #9dada88f;
+}
+
+.title-footer .text-button {
+  font-size: 10px;
+  margin-left: auto;
+}
+
+.title-footer .version {
+  margin-left: 20px;
+  color: #82928b;
+}
