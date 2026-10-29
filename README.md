@@ -91,4 +91,4 @@ npm run build
 
 See [CHANGELOG.md](CHANGELOG.md) for version history. Update its Unreleased section alongside future changes, then move entries into a dated version section when the next version is completed.
 
-See `docs/opening-design.md` for the interaction contract, `docs/architecture.md` for migration decisions, and `docs/verification.md` for evidence and limits.
+See [docs/story-and-world.md](docs/story-and-world.md) for story decisions and planned world expansion, `docs/opening-design.md` for the implemented interaction contract, `docs/architecture.md` for migration decisions, and `docs/verification.md` for evidence and limits.

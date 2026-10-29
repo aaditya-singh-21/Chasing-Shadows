@@ -10,6 +10,14 @@ Record future changes under **Unreleased** as part of the same work. Use Added, 
 
 - This changelog, linked from the README and included in formatting checks.
 - A repository-wide `AGENTS.md` handoff guide covering the game's direction, implemented opening, architecture, development workflow, save compatibility, and verification limits for future AI contributors.
+- A story/world design record naming Thomas and his fiancée Grace, establishing the other citizens' deaths including Thomas's family, and recording the approved direction of enterable buildings. Proposed reveal pacing, interior routes, and transition/save requirements are separated from implemented gameplay and unresolved world rules.
+
+### Changed
+
+- Refined the story design to an altered physical city, a shadow formed from Thomas's old memories, and a family of parents and a younger brother. Chapter One now ends on proof of the brother's death, with the parents' losses revealed individually later. Removed the proposed Chapter One live-response payoff and documented a proposed suitcase/brother connection; these are design updates, not new playable scenes.
+- Specified automatic observation of a reddish/blood-like suitcase mark, partial identity recovery before the brother's death reveal, and forgiving survival/pursuit with last-checkpoint recovery. Removed the proposed optional suitcase inspection and need for a luggage-abandonment explanation. These mechanics and scenes remain planned rather than implemented.
+- Confirmed Daniel as Thomas's younger brother (around 19), Thomas in his late twenties, and a first-chapter scope of two enterable buildings, a connecting passage, one optional branch, and two short pursuits beyond the existing opening. Pursuer design remains open; no duration or implemented expansion is claimed.
+- Simplified the story premise: Thomas and Grace survived by luck. Removed the proposed connected/special survival mechanism and its associated pursuer rationale; pursuit/survival remains the gameplay focus, with enemy design still open.
 
 ## 0.2.0 - 2026-10-29
 

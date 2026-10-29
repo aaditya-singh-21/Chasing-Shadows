@@ -6,7 +6,7 @@ This file applies to the whole repository. It is a portable handoff for coding a
 
 1. Read this guide and `README.md` for setup and controls.
 2. Read `CHANGELOG.md`, including Unreleased, to understand recent changes.
-3. Read `docs/opening-design.md` before changing narrative, puzzles, or progression; read `docs/architecture.md` before changing ownership or rendering.
+3. Read `docs/story-and-world.md` for current story canon and proposed expansion, then `docs/opening-design.md` for the implemented opening; read `docs/architecture.md` before changing ownership or rendering.
 4. Read `docs/verification.md` for previous evidence and outstanding acceptance limits. Historical checks are not proof that your new changes pass.
 5. Inspect the working tree and relevant source before editing. Preserve existing uncommitted work; do not assume a clean checkout or a running preview.
 
@@ -14,7 +14,13 @@ This file applies to the whole repository. It is a portable handoff for coding a
 
 **Chasing Shadows** is a browser-first, single-player, side-scrolling 2D mystery. The player wakes in an abandoned city where everyone has disappeared. Their shadow moves independently and remembers things they do not. The central mystery concerns identity: the player gradually suspects who they used to be.
 
-- The working larger premise is that the shadow wants to finish an attempt to save someone. That person's relationship to the protagonist, the cost of saving them, and the disappearance's explanation remain undecided. Do not present guesses as established canon.
+- The protagonist is **Thomas**, and the woman in the photograph is **Grace**, his fiancée. His family consists of his parents and a younger brother. The catastrophe killed the other citizens, including this family; their deaths are discovered separately. Grace survives as author knowledge, but Thomas and the shadow do not know her fate. The shadow is part of his conscience formed from old memories; it can learn, carries unfinished intentions, and can repeat emotionally significant past actions. It has no privileged knowledge of current survivors or casualties.
+- The setting is a physical city altered by supernatural rules. Thomas and Grace survived the catastrophe **by luck** and are separated. Keep that premise simple; do not invent connected survival actions, special protection, or a pursuer trying to reverse a special survival mechanism. The shadow-like pursuer is still an unapproved proposal. Pursuit/survival is the gameplay motive, and detailed catastrophe lore is not a prerequisite for Chapter One. Thomas expresses care practically and struggles with emotional communication. See `docs/story-and-world.md` for canon versus proposals.
+- Thomas is in his late twenties. His younger brother is **Daniel**, around 19, becoming independent while Thomas still instinctively looks after him. The approved first-chapter scope is the existing opening plus two enterable buildings, a connecting passage, one optional exploration branch, identity/family discoveries, two short pursuit encounters with nearby checkpoints, and Daniel's death reveal. Duration is to be playtested; the pursuer is not chosen yet.
+- The full Chapter One follows local leads, branching exploration, recognition of memory loss, and the shadow's memory connection. It ends on proof of the younger brother's death, potentially showing his body. Do not end it with a live signal, contact from Grace, or confirmed survival. The parents' losses come later, individually. The existing photo ending is only the current prototype slice. The user cited Limbo as inspiration for uncertain forward exploration, not a fixed known destination.
+- Thomas learns part of his identity, including his name and younger-brother relationship, before the body reveal. The discovery confirms a personal loss and does not restore all his memories. The suitcase's planned reddish/blood-like mark is noticed automatically during passage, without an inspection prompt; abandoned luggage needs no separate explanation beyond the catastrophe. The specific suitcase/brother connection remains proposed.
+- Survival and pursuit are approved direction, with death restarting from the last checkpoint and story/gameplay prioritized over difficulty. Pursuers, death/restart, and checkpoint encounter design are not implemented yet; do not claim otherwise or assume a combat system.
+- Selected buildings should become enterable, traversable side-scrolling interiors with meaningful routes and exploration choices. This is approved design direction, not implemented room-transition functionality. The current opening still uses one continuous world.
 - The opening establishes familiarity and attachment, not confirmed guilt or the complete identity reveal.
 - The user chose TypeScript + Phaser for a lightweight browser game. Continue with that stack unless the user changes direction. A desktop download, Godot port, backend, multiplayer, and cloud saves are outside the current scope.
 - Hollow Knight inspired the choice of 2D exploration, readable silhouettes, and layered depth. This does not commit the project to its combat or reproduce its characters, art, or world.
@@ -69,7 +75,7 @@ Environment illustrations are painted once into seven reusable world chunks; the
 
 The existing canvas uses explicit `Phaser.WEBGL`; an earlier AUTO renderer configuration failed. Use APIs for the installed Phaser version: for example, the shadow uses `Phaser.TintModes.FILL`. Check dependency typings when adapting examples from other versions. Phaser audio is disabled because `Soundscape` owns audio.
 
-The opening is intentionally one connected scene. Future chapters can get separate scenes and level data. The HTML interface does not currently need a React framework.
+The implemented opening is one connected scene. Planned enterable buildings need reusable room/transition handling, shared progression, and compatible location-aware saves; the implementation approach is not yet chosen. Future chapters can get separate scenes and level data. The HTML interface does not currently need a React framework.
 
 ## Development and validation
 
@@ -115,7 +121,7 @@ The migration's recorded evidence includes 17 passing regression tests, strict t
 
 Read `docs/verification.md` for details and dates. Do not claim fresh validation from that historical record. Physical-phone touch behavior, Safari/Firefox acceptance, assistive-technology auditing, low-end device performance/GPU memory, final art, independent human acceptance, and the original 10–15 minute pacing target remain unverified.
 
-There is no committed next chapter or combat system. Useful next decisions should follow human playtests: whether players notice the shadow's independent movement, understand the lamp rule, feel curiosity about the knock/photo, and enjoy traversal. The larger identity reveal and missing person's relationship remain open design questions.
+There is no committed total chapter count or combat system. Chapter One's endpoint is Daniel's confirmed death after earlier partial identity recovery; the full game's ending remains open. Further catastrophe details, the parents' names/ages, exact routes, pursuer behavior and encounter details, and the proposed suitcase-to-brother connection still need design. Survival by luck is settled. Mara, successfully evacuated citizens, connected/special survival mechanisms, a Chapter One live-response ending, optional suitcase inspection, and a mandatory memory-sacrifice finale are superseded or unapproved proposals. Human playtests should still evaluate shadow readability, the lamp rule, curiosity, traversal, and eventual pursuit/recovery feel.
 
 ## Working conventions and handoff upkeep
 
