@@ -4,6 +4,8 @@ A browser-first, single-player 2D mystery. You wake on an empty tram. Your shado
 
 The playable opening uses **TypeScript (strict mode), Phaser 4.2.1, and Vite**. The original Canvas game has been migrated to Phaser scenes, sprites, animations, camera, input, and Arcade Physics.
 
+AI contributors should start with [AGENTS.md](AGENTS.md) for project context, accepted design decisions, architecture, validation, and handoff instructions.
+
 ## Run locally
 
 Development requires **Node.js 22.19+**. Players of a hosted build only need a modern browser with WebGL support.
@@ -86,5 +88,7 @@ npm test
 npm run format:check
 npm run build
 ```
+
+See [CHANGELOG.md](CHANGELOG.md) for version history. Update its Unreleased section alongside future changes, then move entries into a dated version section when the next version is completed.
 
 See `docs/opening-design.md` for the interaction contract, `docs/architecture.md` for migration decisions, and `docs/verification.md` for evidence and limits.
