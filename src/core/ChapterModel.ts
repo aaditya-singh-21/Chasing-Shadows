@@ -3,13 +3,15 @@ import { OpeningModel } from './OpeningModel.ts';
 import type { DeathCause, Flag, Interaction, RoomId, SaveData } from './types.ts';
 import { ROOMS, floorAt } from '../data/rooms.ts';
 import { validateSave } from '../systems/SaveStore.ts';
+import { ChapterTwo } from './ChapterTwo.ts';
 
 export class ChapterModel extends OpeningModel {
+  readonly chapterTwo = new ChapterTwo(this);
   room: RoomId = 'street';
   marks = new Set<string>();
   hazardTime = -1;
   sequenceTime = 0;
-  sequence: 'memory' | 'ending' | 'death' | null = null;
+  sequence: 'memory' | 'ending' | 'death' | 'farewell' | null = null;
   private safe: SaveData | null = null;
   get trolleyX(): number {
     return Math.min(2400, 80 + Math.max(0, this.hazardTime - 2.5) * 210);
@@ -66,6 +68,8 @@ export class ChapterModel extends OpeningModel {
     if (this.sequence || this.paused || !this.started || !this.player.grounded) return null;
     if (this.mode !== 'walk') return super.interaction;
     const x = this.player.x;
+    const continuation = this.chapterTwo.interaction;
+    if (continuation) return continuation;
     const door = ROOMS[this.room].doors.find(
       (d) =>
         Math.abs(d.x - x) < 100 &&
@@ -89,6 +93,7 @@ export class ChapterModel extends OpeningModel {
   override interact(): void {
     if (this.sequence || this.paused) return;
     const target = this.interaction;
+    if (target && this.chapterTwo.interact(target.id)) return;
     if (target?.id === 'travel') {
       const door = ROOMS[this.room].doors.find(
         (d) =>
@@ -136,6 +141,7 @@ export class ChapterModel extends OpeningModel {
     if (this.paused || !this.started || this.inTitle) return;
     if (this.sequence === 'death') return;
     dt = Math.min(dt, 0.05);
+    if (this.chapterTwo.update(dt)) return;
     if (this.sequence) {
       this.time += dt;
       const previous = this.sequenceTime;
@@ -229,6 +235,11 @@ export class ChapterModel extends OpeningModel {
       : ROOMS[this.room].title;
   }
   override get objective(): string {
+    if (this.room === 'residential-lane') return 'Find No. 14 beyond the residential lane.';
+    if (this.room === 'shelter-rest' && this.marks.has('chapterTwoStarted'))
+      return this.marks.has('farewell')
+        ? 'Take the upper exit. Look for home.'
+        : 'Stay with Daniel. Cover him before leaving.';
     const objectives: Partial<Record<RoomId, string>> = {
       workshop: 'Look for something familiar. Restore service power.',
       'service-passage': 'Reach the shelter side doorway.',

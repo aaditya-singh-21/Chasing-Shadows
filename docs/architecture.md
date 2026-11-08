@@ -1,5 +1,11 @@
 # Architecture and migration decisions
 
+## Chapter Two continuation slice — 2026-11-08
+
+`ChapterTwo` is a pure rules module composed by `ChapterModel`, without a new inheritance layer or game loop. It owns entry eligibility, the farewell timeline, and lane discoveries; `ContinuationView` owns disposable blanket/lane presentation through `RoomView`. The existing scene and HTML dialog/focus flow are reused. Eight rooms now exist, including the residential lane. Only the first continuation slice is implemented; the rest of the sequence remains future work.
+
+SaveStore now writes `{ version: 3, checkpoint }` to `chasing-shadows:campaign:v3`, using the compatible internal checkpoint structure. It reads valid campaign, Chapter One v2, then opening v1, leaving imported keys unchanged. Chapter Two currently uses validated milestone marks (`chapterTwoStarted`, `farewell`, `homeLead`, `laneAlcove`) rather than a separate chapter-state payload; its room and prerequisite validation reject early lane access. Future utility state and rooms still require an explicit schema extension. Begin/replay replaces the campaign with fresh Chapter One progress, preventing stale continuation data taking precedence. Unfinished farewell snapshots retain the pre-action checkpoint. The architecture sections below describe the retained Chapter One systems; their v2 write behavior is historical.
+
 ## Target
 
 Chasing Shadows is browser-first. TypeScript provides checked state and event contracts, Phaser provides the game runtime, and Vite provides development and static builds. The versioned lockfile fixes the dependency graph. There are no runtime CDN dependencies.

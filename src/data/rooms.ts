@@ -72,7 +72,26 @@ export const ROOMS: Record<RoomId, Room> = {
       { x: 1720, to: 'shelter-rest', spawn: 180, label: 'Enter upper rest room' },
     ],
   },
-  'shelter-rest': { width: 1500, floor: 700, title: 'Station shelter · rest room', doors: [] },
+  'shelter-rest': {
+    width: 1500,
+    floor: 700,
+    title: 'Station shelter · rest room',
+    doors: [
+      {
+        x: 1370,
+        to: 'residential-lane',
+        spawn: 180,
+        label: 'Leave through upper exit',
+        requires: 'farewell',
+      },
+    ],
+  },
+  'residential-lane': {
+    width: 1900,
+    floor: 700,
+    title: 'Residential lane · behind Mercer Street',
+    doors: [{ x: 100, to: 'shelter-rest', spawn: 1260, label: 'Return to Daniel' }],
+  },
   courtyard: {
     width: 1600,
     floor: 700,

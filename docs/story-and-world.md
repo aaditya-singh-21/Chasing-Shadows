@@ -1,5 +1,7 @@
 # Story and world progression
 
+2026-11-08 implementation update: the user authorized beginning Chapter Two from the detailed sequence. The implemented first slice covers Daniel's farewell, the shelter upper exit, and the residential lane, establishing No. 14 as the home lead. Grace's domestic memory, engagement recognition, departure evidence, and the route beyond the lane remain future work. No additional casualty or survival claim is revealed. See [chapter-two-design.md](chapter-two-design.md) and [verification.md](verification.md). Earlier implementation-status language below predates this first slice.
+
 Design record updated 2026-11-08. This document separates user-approved story/world decisions from proposed execution. It contains spoilers. Chapter One is implemented as a playable prototype; the user reports completing a playthrough and finding it satisfactory. Chapter Two's direction is approved but not implemented. See verification.md for evidence and remaining acceptance limits.
 
 ## Confirmed direction
@@ -141,6 +143,8 @@ These are planning requirements, not claims of existing functionality. Current a
 ## Next design work
 
 Chapter One is complete as a playable prototype, with the user's first full playthrough reported as satisfactory. Next, turn the approved Chapter Two direction into a playable sequence: settle the home address and route connection, required relationship discoveries, Grace's credible post-catastrophe clue, environmental encounters, and safe checkpoints. The approval does not select exact geometry, hazard mechanics, a chapter title, or a runtime target. Keep the parents' later reveal order, catastrophe mechanism, total chapter count, and final ending open. See [chapter-two-design.md](chapter-two-design.md).
+
+The [playable-sequence draft](chapter-two-sequence.md) now proposes these execution details for review before implementation. The user selected one short environmental escape with more exploration on 2026-11-08. The proposed No. 14 layout, utility puzzle, collapse encounter, evidence texts, and campaign format are not yet approved canon or implemented behavior.
 
 ## Implemented Chapter One
 

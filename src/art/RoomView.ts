@@ -4,8 +4,10 @@ import { ROOMS, LOWER_STEPS, SERVICE_OBSTACLES } from '../data/rooms.ts';
 import { createDanielRest, createEmployeeTexture } from './ChapterDetails.ts';
 import { createDanielTexture } from './CharacterArt.ts';
 import { POSE } from './CharacterArt.ts';
+import { ContinuationView } from './ContinuationView.ts';
 
 export class RoomView {
+  private continuation: ContinuationView;
   private water: Phaser.GameObjects.Rectangle;
   private trolley: Phaser.GameObjects.Container;
   private veil: Phaser.GameObjects.Rectangle;
@@ -153,8 +155,10 @@ export class RoomView {
       .setScrollFactor(0)
       .setDepth(100)
       .setAlpha(0);
+    this.continuation = new ContinuationView(scene, model);
   }
   update(): void {
+    this.continuation.update();
     const m = this.model;
     this.trolley.x = m.marks.has('trolley') ? 2400 : m.trolleyX;
     this.water.y = m.marks.has('flood') ? 930 : m.waterY;

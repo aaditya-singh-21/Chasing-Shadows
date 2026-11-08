@@ -1,7 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { ChapterModel } from '../src/core/ChapterModel.ts';
-import { validateSave, SaveStore, SAVE_KEY, CHAPTER_KEY } from '../src/systems/SaveStore.ts';
+import {
+  validateSave,
+  SaveStore,
+  SAVE_KEY,
+  CHAPTER_KEY,
+  CAMPAIGN_KEY,
+} from '../src/systems/SaveStore.ts';
 import { ROOMS } from '../src/data/rooms.ts';
 function tick(m: ChapterModel, n: number) {
   for (let t = 0; t < n; t += 0.025) m.update(0.025);
@@ -11,8 +17,8 @@ function game() {
   m.start();
   return m;
 }
-test('all seven rooms have safe destinations', () => {
-  assert.equal(Object.keys(ROOMS).length, 7);
+test('all chapter and continuation rooms have safe destinations', () => {
+  assert.equal(Object.keys(ROOMS).length, 8);
   for (const r of Object.values(ROOMS))
     for (const d of r.doors) {
       assert.ok(d.spawn > 0 && d.spawn < ROOMS[d.to].width);
@@ -157,13 +163,14 @@ test('new storage preserves legacy bytes and falls back from corrupt v2', () => 
   const m = game();
   store.write(m.snapshot());
   assert.equal(map.get(SAVE_KEY), before);
-  assert.equal(JSON.parse(map.get(CHAPTER_KEY)!).version, 2);
+  assert.equal(JSON.parse(map.get(CAMPAIGN_KEY)!).version, 3);
+  assert.equal(map.get(CHAPTER_KEY), 'broken');
 });
 
 test('every authored doorway reaches its matching safe destination', () => {
   const m = game();
   m.flags.panelOpen = true;
-  m.marks = new Set(['power', 'brother', 'shortcut', 'flood', 'trolley']);
+  m.marks = new Set(['power', 'brother', 'shortcut', 'flood', 'trolley', 'farewell']);
   for (const [id, r] of Object.entries(ROOMS))
     for (const d of r.doors) {
       m.travel(id as keyof typeof ROOMS, d.x);

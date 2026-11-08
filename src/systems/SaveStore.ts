@@ -5,6 +5,7 @@ import type { Flags, Flag, NoteId, SaveData } from '../core/types.ts';
 
 export const SAVE_KEY = 'chasing-shadows:opening:v1';
 export const CHAPTER_KEY = 'chasing-shadows:chapter-one:v2';
+export const CAMPAIGN_KEY = 'chasing-shadows:campaign:v3';
 export const SETTINGS_KEY = 'chasing-shadows:settings:v1';
 export const freshFlags = (): Flags => ({
   doorOpen: false,
@@ -40,7 +41,11 @@ export function safeCheckpointX(x: number): number {
 export function validateSave(value: unknown): SaveData | null {
   if (!value || typeof value !== 'object') return null;
   let data = value as Record<string, unknown>;
-  if (data.version === 2 && data.checkpoint && typeof data.checkpoint === 'object')
+  if (
+    (data.version === 2 || data.version === 3) &&
+    data.checkpoint &&
+    typeof data.checkpoint === 'object'
+  )
     data = data.checkpoint as Record<string, unknown>;
   if (data.version !== 1 || !data.flags || typeof data.flags !== 'object') return null;
   const rawFlags = data.flags as Record<string, unknown>;
@@ -89,12 +94,36 @@ export function validateSave(value: unknown): SaveData | null {
               'courtyard',
               'suitcase',
               'road-end',
+              'chapterTwoStarted',
+              'farewell',
+              'homeLead',
+              'laneAlcove',
             ].includes(m),
         )
       : [];
     if (marks.includes('chapterComplete') && !marks.includes('brother'))
       marks.splice(marks.indexOf('chapterComplete'), 1);
+    if (!marks.includes('chapterComplete'))
+      for (const id of ['chapterTwoStarted', 'farewell', 'homeLead', 'laneAlcove']) {
+        const index = marks.indexOf(id);
+        if (index >= 0) marks.splice(index, 1);
+      }
+    if (!marks.includes('chapterTwoStarted'))
+      for (const id of ['farewell', 'homeLead', 'laneAlcove']) {
+        const index = marks.indexOf(id);
+        if (index >= 0) marks.splice(index, 1);
+      }
+    if (!marks.includes('farewell'))
+      for (const id of ['homeLead', 'laneAlcove']) {
+        const index = marks.indexOf(id);
+        if (index >= 0) marks.splice(index, 1);
+      }
     chapter = { room, marks, y: floorAt(room, position) };
+    if (room === 'residential-lane' && !marks.includes('farewell')) {
+      chapter.room = marks.includes('chapterComplete') ? 'shelter-rest' : 'shelter-hall';
+      position = marks.includes('chapterComplete') ? 800 : 300;
+      chapter.y = 700;
+    }
     if (room === 'service-passage' && !marks.includes('trolley')) position = 300;
     if (room === 'shelter-lower' && !marks.includes('flood')) {
       position = 200;
@@ -127,13 +156,20 @@ export class SaveStore {
     this.storage = privateStorage;
     try {
       this.storage ??= globalThis.localStorage;
-      const current = this.storage?.getItem(CHAPTER_KEY);
-      try {
-        this.cache = validateSave(JSON.parse(current ?? 'null'));
-      } catch {
-        this.cache = null;
+      for (const key of [CAMPAIGN_KEY, CHAPTER_KEY, SAVE_KEY]) {
+        try {
+          const value: unknown = JSON.parse(this.storage?.getItem(key) ?? 'null');
+          if (
+            key === CAMPAIGN_KEY &&
+            (!value || typeof value !== 'object' || !('version' in value) || value.version !== 3)
+          )
+            continue;
+          this.cache = validateSave(value);
+        } catch {
+          this.cache = null;
+        }
+        if (this.cache) break;
       }
-      this.cache ??= validateSave(JSON.parse(this.storage?.getItem(SAVE_KEY) ?? 'null'));
     } catch {
       this.available = false;
     }
@@ -148,10 +184,7 @@ export class SaveStore {
     this.cache = checkpoint;
     try {
       if (!this.storage) throw new Error('Storage unavailable');
-      this.storage.setItem(
-        checkpoint.chapter ? CHAPTER_KEY : SAVE_KEY,
-        JSON.stringify(checkpoint.chapter ? { version: 2, checkpoint } : checkpoint),
-      );
+      this.storage.setItem(CAMPAIGN_KEY, JSON.stringify({ version: 3, checkpoint }));
       this.available = true;
     } catch {
       this.available = false;

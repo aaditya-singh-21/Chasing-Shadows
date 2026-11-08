@@ -32,6 +32,7 @@ export type RoomId =
   | 'shelter-hall'
   | 'shelter-lower'
   | 'shelter-rest'
+  | 'residential-lane'
   | 'courtyard';
 export interface ChapterState {
   room: RoomId;
@@ -50,6 +51,8 @@ export interface SaveData {
 export interface Interaction {
   id:
     | 'identity'
+    | 'farewell'
+    | 'lane-look'
     | 'travel'
     | 'power'
     | 'tram'
@@ -66,6 +69,7 @@ export type GameEvent =
   | { type: 'start' }
   | { type: 'room' }
   | { type: 'chapter-end' }
+  | { type: 'chapter-two-preview' }
   | { type: 'death'; value: DeathCause }
   | { type: 'sound'; value: SoundId }
   | { type: 'say'; value: { text: string; seconds: number } }

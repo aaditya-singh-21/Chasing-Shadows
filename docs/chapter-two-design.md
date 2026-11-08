@@ -1,6 +1,10 @@
 # Chapter Two: approved direction
 
+Implementation started 2026-11-08 at the user's request. The first slice includes the Chapter One continuation, Daniel's blanket farewell, the upper exit, and an explorable residential lane. The district detour, utility puzzle, escape, home, and Grace discoveries remain unimplemented. See [verification.md](verification.md) for evidence and [chapter-two-sequence.md](chapter-two-sequence.md) for the full intended sequence. References below to unimplemented direction describe the complete chapter, not the new first slice.
+
 Approved 2026-11-08. This document records narrative and exploration direction only. Chapter Two is not implemented, and this is not yet a build-ready playable-sequence plan. No chapter subtitle is selected.
+
+A detailed [playable-sequence draft](chapter-two-sequence.md) now proposes the room graph, individual actions, clue logic, checkpoints, and compatibility requirements for review before implementation. The user selected one short environmental escape with more exploration; the draft's remaining execution choices are proposals, not additional approvals.
 
 ## Emotional progression
 

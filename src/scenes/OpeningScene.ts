@@ -225,6 +225,10 @@ export class OpeningScene extends Phaser.Scene {
     this.traveller.setVisible(m.sequence !== 'memory');
     this.silhouette.setVisible(m.sequence !== 'memory');
     this.silhouette.present(m);
+    if (m.sequence === 'farewell') {
+      this.traveller.anims.stop();
+      this.traveller.setFrame(CHAPTER_POSE.reach);
+    }
     if (m.sequence === 'ending') {
       this.traveller.anims.stop();
       this.traveller.setFrame(CHAPTER_POSE.reach).setScale(1, 0.7);

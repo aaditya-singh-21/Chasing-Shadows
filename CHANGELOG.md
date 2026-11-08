@@ -8,6 +8,9 @@ Record future changes under **Unreleased** as part of the same work. Use Added, 
 
 ### Added
 
+- 2026-11-08: Began Chapter Two with an explicit continuation from completed Chapter One saves, a pause-safe six-second blanket farewell and changing shadow response, a reversible upper exit, residential-lane prototype illustration, optional bicycle discovery, and an honest current-content boundary. The remaining district route and home scenes are not implemented.
+- Campaign v3 saves import valid v2/v1 progress while preserving those older storage keys. New-game/replay writes a fresh campaign; unfinished farewell reloads safely before the action, completed farewells and lane discoveries persist. Added continuation and campaign-compatibility regression coverage.
+- 2026-11-08: Added a detailed Chapter Two playable-sequence draft for design review, covering reuse of No. 14, residential exploration, a utility light puzzle, one short escape, Grace's relationship/evidence sequence, checkpoints, and proposed save compatibility. The user selected the one-escape/exploration balance; remaining execution details are proposals. No gameplay or storage behavior changes.
 - 2026-11-08: Recorded the approved Chapter Two direction in `docs/chapter-two-design.md`: Daniel's quiet farewell, a residential search for home, fallible shadow memories, Grace's relationship reveal, and evidence suggesting her initial survival. Exact routes, clues, and hazards remain to be designed; no Chapter Two gameplay or save changes are included.
 - Playable Chapter One: seven connected rooms, enterable workshop and shelter, courtyard loop and inside-opened shelter shortcut.
 - Thomas’s automatic name discovery, Daniel’s staged living memory, persistent chapter journal entries, and a separate body-discovery ending.

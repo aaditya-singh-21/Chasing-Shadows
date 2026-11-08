@@ -7,6 +7,7 @@ import { photographSVG } from '../art/photograph.ts';
 import { Soundscape } from '../systems/Soundscape.ts';
 import { SaveStore, SETTINGS_KEY, notesFromFlags } from '../systems/SaveStore.ts';
 import { ui, type DialogId } from './dom.ts';
+import { CHAPTER_TWO_NOTES } from '../core/ChapterTwo.ts';
 
 export class AppController {
   private readonly sound = new Soundscape();
@@ -20,6 +21,7 @@ export class AppController {
   private lastLocation = '';
   private lastObjective = '';
   private lastCue = '';
+  private lastChapter = '';
   private showWholeSequence = false;
   private accessFeedbackUntil = 0;
   private switchingDialogs = false;
@@ -120,7 +122,11 @@ export class AppController {
         break;
       }
       case 'chapter-end':
+        ui('next-chapter').hidden = this.model.marks.has('chapterTwoStarted');
         this.openDialog('ending-dialog');
+        break;
+      case 'chapter-two-preview':
+        this.openDialog('preview-dialog');
         break;
       case 'room':
         this.scene.clearInput();
@@ -158,6 +164,14 @@ export class AppController {
     this.scene.clearInput();
     ui('world').focus({ preventScroll: true });
     this.sound.suspend(false);
+    if (
+      resume &&
+      this.model.marks.has('chapterComplete') &&
+      !this.model.marks.has('chapterTwoStarted')
+    ) {
+      ui('next-chapter').hidden = false;
+      this.openDialog('ending-dialog');
+    }
   }
 
   private closeDialogs(): void {
@@ -206,6 +220,7 @@ export class AppController {
       entries.append(entry);
     });
     const chapterNotes: Record<string, string> = {
+      ...CHAPTER_TWO_NOTES,
       identity:
         'Thomas · Maintenance. Employee of the Month. The portrait has my face and scarf. I know my name.',
       brother:
@@ -307,6 +322,14 @@ export class AppController {
   }
 
   private bind(): void {
+    ui('next-chapter').addEventListener('click', () => {
+      if (this.model.chapterTwo.begin()) {
+        this.closeDialogs();
+        this.model.paused = false;
+        this.sound.suspend(false);
+        ui('world').focus({ preventScroll: true });
+      }
+    });
     ui('death-dialog').addEventListener('cancel', (event) => event.preventDefault());
     ui('retry-button').addEventListener('click', () => {
       if (this.model.sequence !== 'death') return;
@@ -501,6 +524,11 @@ export class AppController {
   private update(): void {
     const m = this.model;
     if (!m.started || m.inTitle) return;
+    const chapter = m.marks.has('chapterTwoStarted') ? '02 CHAPTER TWO' : '01 THE LAST STOP';
+    if (chapter !== this.lastChapter) {
+      this.lastChapter = chapter;
+      ui('chapter-marker').textContent = chapter;
+    }
     if (this.lastLocation !== m.location) {
       this.lastLocation = m.location;
       ui('location').textContent = m.location;

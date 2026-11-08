@@ -1,5 +1,7 @@
 # Opening design: The Last Stop
 
+2026-11-08 implementation update: Chapter One's body discovery remains its endpoint. A new explicit continuation action starts Chapter Two in the rest room, where covering Daniel leads to a residential-lane slice. The full chapter is not complete. See [chapter-two-design.md](chapter-two-design.md) and [verification.md](verification.md); statements below describing the farewell as future work predate this slice.
+
 ## Narrative contract
 
 An abandoned city, an amnesiac protagonist, and a shadow that retains traces of their former self. The opening establishes familiarity and attachment. It does not establish guilt, explain the disappearance, or identify the person the protagonist previously wanted to save.
@@ -44,6 +46,8 @@ The access panel repeats four gestures with a pause between cycles. Wrong input 
 ## Scope and next decisions
 
 Chapter One is complete as a playable prototype, with a satisfactory full playthrough reported by the user on 2026-11-08. The approved continuation is documented in [chapter-two-design.md](chapter-two-design.md). Its planned quiet farewell begins after Daniel's discovery; it is not yet playable and does not add Grace's survival evidence to Chapter One. Chapter Two's exact level sequence still needs design.
+
+See the [detailed playable-sequence draft](chapter-two-sequence.md) for a proposed continuation action, farewell, route, and discoveries. Its execution details remain under review; this does not alter the implemented opening or its ending.
 
 The slice uses TypeScript, Phaser, and Vite for browser-first development. It tests readability, movement, the relationship with the shadow, and the two interactions. Static website deployment is supported by the build, while hosting and offline service-worker caching are outside this migration.
 

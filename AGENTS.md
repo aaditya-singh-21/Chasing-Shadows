@@ -1,5 +1,11 @@
 # Agent guide: Chasing Shadows
 
+## Latest implementation handoff — 2026-11-08
+
+Chapter Two has started, with only its first continuation slice implemented: completed Chapter One saves offer an explicit continuation, Thomas covers Daniel in a six-second pause-safe farewell, and the upper exit connects reversibly to a new residential lane with prototype art and one optional discovery. The lane's far-end interaction explicitly identifies the current content boundary; do not treat it as Chapter Two completion. The apartment, utility light puzzle, one escape, home and Grace discoveries remain to implement from `docs/chapter-two-sequence.md`. The user authorized starting implementation of that sequence; preserve its story limits.
+
+`ChapterTwo` composes pure continuation rules into `ChapterModel`; `ContinuationView` draws disposable room presentation. Eight rooms now exist. New writes use `chasing-shadows:campaign:v3` with a version-3 envelope around the compatible checkpoint. Read valid campaign, then v2, then legacy v1; imported keys stay unchanged. Continuation milestones are validated against Chapter One completion and farewell prerequisites. Begin/replay replaces campaign progress; existing settings are unchanged. The older v2 write and wholly-unimplemented Chapter Two descriptions below are historical. See architecture/verification docs for current details and limits.
+
 This file applies to the whole repository. It is a portable handoff for coding assistants; no previous chat, personal memory folder, or particular AI service is required. Follow the user's current request and keep this guide aligned with the code when decisions change.
 
 ## Start here
@@ -32,6 +38,8 @@ This file applies to the whole repository. It is a portable handoff for coding a
 Chapter One is complete as a playable prototype. On 2026-11-08, the user reported completing the playthrough and finding it satisfactory. This is first user playthrough acceptance, not measured pacing, final-art approval, or physical-device/browser coverage.
 
 Chapter Two's narrative direction is approved, not implemented: acknowledge Daniel's death, seek the family home through a residential district, show the shadow's remembered route failing against present damage, develop Grace as a person, and end with fiancée recognition plus credible evidence suggesting her initial survival and departure. Do not confirm either parent's death or Grace's present location/current survival in Chapter Two. No. 14 is the preferred home candidate, pending route design. Read `docs/chapter-two-design.md` before planning implementation; exact rooms, hazards, clues, and save changes remain undecided.
+
+The user selected one short Chapter Two environmental escape with more exploration on 2026-11-08. `docs/chapter-two-sequence.md` contains a detailed execution draft for review, including reuse of the existing No. 14/courtyard, a utility/gallery route, home discoveries, and proposed campaign compatibility. Its other choices are not yet approved or implemented; do not treat draft room names, dialogue, hazard tuning, or storage proposals as current behavior.
 
 The current version is **0.2.0** (implementation milestone dated 2026-10-29; not a claim of public deployment). Check `package.json` and the changelog for later versions.
 

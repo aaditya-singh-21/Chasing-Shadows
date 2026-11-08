@@ -1,4 +1,7 @@
 interface Elements {
+  'chapter-marker': HTMLElement;
+  'next-chapter': HTMLButtonElement;
+  'preview-dialog': HTMLDialogElement;
   'death-dialog': HTMLDialogElement;
   'death-reason': HTMLElement;
   'death-checkpoint': HTMLElement;
@@ -58,6 +61,7 @@ interface Elements {
 }
 
 export type DialogId =
+  | 'preview-dialog'
   | 'pause-dialog'
   | 'help-dialog'
   | 'journal-dialog'

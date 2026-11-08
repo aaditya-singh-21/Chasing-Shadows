@@ -1,3 +1,19 @@
+# Chapter Two first continuation slice — 2026-11-08
+
+Implemented the explicit handoff from completed Chapter One saves, the six-second blanket farewell and changing shadow response, a reversible upper shelter exit, residential-lane prototype art and optional discovery, and a clearly labelled development boundary. This is the start of Chapter Two, not a completed chapter. The district detour, puzzle, escape, home, and Grace discoveries remain unimplemented.
+
+Automated validation: 46 regression tests pass, including six new tests for entry eligibility, pause and interrupted-action snapshots, completed farewell/reversible travel, prerequisite normalization, campaign precedence/import preservation/replay reset, and blocked storage. Strict TypeScript, formatting, production build, and the 500 KiB gzip budget pass. The latest runtime JavaScript is approximately 377.2 KiB gzip estimate, not measured load time or GPU usage.
+
+Production-preview checks used actual input in in-app Chromium on isolated `http://127.0.0.1:4174`, seeded with a synthetic completed Chapter One v2 checkpoint. Continue offered Chapter Two without replaying the death reveal. Verified farewell entry, pause/resume, blanket completion, upper-exit travel, lane checkpoint reload/Continue, optional bicycle discovery, the explicit current-content boundary, return to the covered Daniel, journal entries, and corrected Chapter Two HUD. The final captured browser warnings/errors list was empty. These targeted fixture checks are not a fresh full Chapter One playthrough or human acceptance.
+
+Visual inspection covered the default 1280 × 720 view, the boundary dialog at 390 × 844, and lane framing at 854 × 390. Temporary viewport overrides were reset. Physical-phone input, other browsers, measured pacing/performance, and final-art quality remain unverified. The user's port-4173 save was not used or overwritten.
+
+# Chapter Two sequence planning — 2026-11-08
+
+Read the project handoff, referenced design/architecture/verification documents, and relevant room, chapter, UI, and save sources before drafting `chapter-two-sequence.md`. The working tree was clean at the start. The user selected one short environmental escape with more exploration. The document proposes execution details for review; no gameplay, save data, dependencies, or runtime ownership changed. Chapter Two has not been implemented or browser-playtested.
+
+Documentation validation: `npm run format:check` and `git diff --check` pass. No runtime tests or build were run for this documentation-only change; historical gameplay evidence below does not validate the proposed sequence.
+
 # User playthrough and design approval — 2026-11-08
 
 The user reports completing Chapter One's full playthrough and says it "felt alright." This supports treating Chapter One as complete as a playable prototype with first user acceptance. The report does not identify the browser, viewport, device, elapsed time, or individual encounter/retry checks; do not infer those results or final-art approval from it. Broader playtesting and the previously recorded device/performance/accessibility limits remain open.

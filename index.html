@@ -101,7 +101,9 @@
             <path d="M5 3h14v18H5a2 2 0 0 1 0-4h14M8 3v14m3-9h5m-5 4h5" /></svg
           ><span>Journal</span><kbd>J</kbd><i id="journal-dot" hidden></i>
         </button>
-        <div class="chapter-marker"><span>01</span><span>THE LAST STOP</span></div>
+        <div class="chapter-marker" id="chapter-marker">
+          <span>01</span><span>THE LAST STOP</span>
+        </div>
         <div class="controls-strip">
           <span><kbd>A</kbd><kbd>D</kbd> move</span><span><kbd>SPACE</kbd> jump</span
           ><span><kbd>E</kbd> interact</span
@@ -273,6 +275,7 @@
         <h2 id="ending-title">The Last Stop</h2>
         <p>Daniel is dead. My brother is dead.</p>
         <p class="ending-question">The city has kept its silence.</p>
+        <button class="primary-button" id="next-chapter">Continue to Chapter Two</button>
         <button class="primary-button" id="keep-exploring">
           Stay a little longer <span aria-hidden="true">⟶</span></button
         ><button class="text-button" id="replay-button">Replay Chapter One</button>
@@ -281,6 +284,17 @@
         <p class="quiet-note">Your discoveries and checkpoint are saved on this device.</p>
       </dialog>
       <div id="screen-reader-status" class="sr-only" role="status" aria-live="polite"></div>
+      <dialog id="preview-dialog" class="modal" aria-labelledby="preview-title">
+        <p class="eyebrow">CHAPTER TWO · IN DEVELOPMENT</p>
+        <h2 id="preview-title">The way home</h2>
+        <p>No. 14 is beyond this block. Thomas has a reason to keep looking.</p>
+        <p>
+          This is the current end of the playable continuation. The district route and family home
+          are still being built. Your checkpoint is saved; you can return to Daniel or explore the
+          lane.
+        </p>
+        <button class="primary-button" data-close>Stay in the lane</button>
+      </dialog>
       <p id="fatal-error" class="fatal-error" hidden></p>
     </main>
   </body>

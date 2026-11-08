@@ -21,7 +21,7 @@ Open **http://127.0.0.1:4173**. Begin starts a new opening; Continue restores th
 npm run dev -- --port 4174
 ```
 
-Dependencies are fetched during setup. Once installed, local play works without an internet connection. No game asset, font, analytics script, or audio sample is fetched from a CDN. Browser storage holds a room-aware chapter checkpoint, including discoveries and lamp settings. New saves use `chasing-shadows:chapter-one:v2`; the original opening key is retained unchanged and imported when no valid chapter checkpoint exists. Existing v1 checkpoints from the original prototype are accepted on the same browser origin.
+Dependencies are fetched during setup. Once installed, local play works without an internet connection. No game asset, font, analytics script, or audio sample is fetched from a CDN. Browser storage holds a room-aware campaign checkpoint, including discoveries and lamp settings. New saves use `chasing-shadows:campaign:v3`; existing Chapter One v2 and opening v1 keys are imported when no valid campaign exists and remain unchanged. Saves belong to the same browser origin. Begin/replay replaces current campaign progress, including Chapter Two progress.
 
 ## Build for a website
 
@@ -69,7 +69,9 @@ Chapter One is complete as a playable prototype. The user reported completing a 
 
 The approved continuation follows Thomas from Daniel's loss toward his family home in a damaged residential district. It develops Grace's personality and their relationship, ending with recognition that she is his fiancée and evidence suggesting she survived the initial disaster and left the neighbourhood. Her current whereabouts and fate remain unknown to Thomas; neither parent's death is confirmed in this chapter.
 
-Chapter Two is planned, not playable. See [docs/chapter-two-design.md](docs/chapter-two-design.md) for the approved sequence and remaining route, clue, and encounter decisions.
+Chapter Two's first continuation slice is implemented: choose **Continue to Chapter Two** from the Chapter One ending (also offered when continuing a completed save), use E near Daniel to cover him, then take the upper exit into the residential lane. The farewell pauses with gameplay and persists after completion. The lane offers a small optional discovery and a return to Daniel. Its far-end interaction clearly marks the current end of the playable continuation. The apartment, utility puzzle, escape, family home, and Grace discoveries are not implemented yet. Browser evidence and limits are in [docs/verification.md](docs/verification.md).
+
+The [detailed playable-sequence draft](docs/chapter-two-sequence.md) proposes the No. 14 route, puzzles, relationship discoveries, evidence, and checkpoints for review before implementation. Its balance of one short escape and more exploration is user-selected; other execution details remain proposals.
 
 ## Code structure
 
