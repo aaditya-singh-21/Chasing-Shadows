@@ -285,3 +285,63 @@ dialog {
 .photo-modal .primary-button {
   margin-top: 20px;
 }
+
+.death-modal {
+  text-align: center;
+  width: 520px;
+  padding: 48px 44px;
+  background: radial-gradient(ellipse at 50% 0%, #3b292c 0%, #18242b 58%, #101a22 100%);
+  border-color: #a4786559;
+  box-shadow: 0 24px 100px #000c;
+}
+.death-modal::backdrop {
+  background: #080d16c9;
+  backdrop-filter: blur(5px) saturate(0.5);
+}
+.death-modal .death-emblem {
+  font-size: 44px;
+  color: #b47b67;
+  margin: 12px 0 22px;
+}
+.death-modal h2 {
+  font-size: clamp(36px, 7vw, 58px);
+  letter-spacing: 0.13em;
+  color: #d6b3a0;
+  margin: 0 0 18px;
+}
+.death-rule {
+  height: 1px;
+  width: 80px;
+  background: #b58a6c77;
+  margin: 24px auto;
+}
+.death-modal #death-checkpoint {
+  font-size: 12px;
+  margin-bottom: 28px;
+}
+.death-modal .primary-button {
+  width: 100%;
+  justify-content: space-between;
+}
+.death-modal .text-button {
+  display: block;
+  margin: 18px auto 0;
+}
+@media (max-height: 500px) {
+  .death-modal {
+    padding: 22px 32px;
+  }
+  .death-modal .death-emblem {
+    display: none;
+  }
+  .death-modal h2 {
+    margin-bottom: 8px;
+    font-size: 36px;
+  }
+  .death-rule {
+    margin: 12px auto;
+  }
+  .death-modal #death-checkpoint {
+    margin-bottom: 16px;
+  }
+}

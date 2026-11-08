@@ -6,7 +6,7 @@ This file applies to the whole repository. It is a portable handoff for coding a
 
 1. Read this guide and `README.md` for setup and controls.
 2. Read `CHANGELOG.md`, including Unreleased, to understand recent changes.
-3. Read `docs/story-and-world.md` for current story canon and proposed expansion, then `docs/opening-design.md` for the implemented opening; read `docs/architecture.md` before changing ownership or rendering.
+3. Read `docs/story-and-world.md` for current story canon and proposed expansion, then `docs/opening-design.md` for the implemented opening and `docs/chapter-two-design.md` for the approved continuation; read `docs/architecture.md` before changing ownership or rendering.
 4. Read `docs/verification.md` for previous evidence and outstanding acceptance limits. Historical checks are not proof that your new changes pass.
 5. Inspect the working tree and relevant source before editing. Preserve existing uncommitted work; do not assume a clean checkout or a running preview.
 
@@ -16,11 +16,11 @@ This file applies to the whole repository. It is a portable handoff for coding a
 
 - The protagonist is **Thomas**, and the woman in the photograph is **Grace**, his fiancée. His family consists of his parents and a younger brother. The catastrophe killed the other citizens, including this family; their deaths are discovered separately. Grace survives as author knowledge, but Thomas and the shadow do not know her fate. The shadow is part of his conscience formed from old memories; it can learn, carries unfinished intentions, and can repeat emotionally significant past actions. It has no privileged knowledge of current survivors or casualties.
 - The setting is a physical city altered by supernatural rules. Thomas and Grace survived the catastrophe **by luck** and are separated. Keep that premise simple; do not invent connected survival actions, special protection, or a pursuer trying to reverse a special survival mechanism. The shadow-like pursuer is still an unapproved proposal. Pursuit/survival is the gameplay motive, and detailed catastrophe lore is not a prerequisite for Chapter One. Thomas expresses care practically and struggles with emotional communication. See `docs/story-and-world.md` for canon versus proposals.
-- Thomas is in his late twenties. His younger brother is **Daniel**, around 19, becoming independent while Thomas still instinctively looks after him. The approved first-chapter scope is the existing opening plus two enterable buildings, a connecting passage, one optional exploration branch, identity/family discoveries, two short pursuit encounters with nearby checkpoints, and Daniel's death reveal. Duration is to be playtested; the pursuer is not chosen yet.
-- The full Chapter One follows local leads, branching exploration, recognition of memory loss, and the shadow's memory connection. It ends on proof of the younger brother's death, potentially showing his body. Do not end it with a live signal, contact from Grace, or confirmed survival. The parents' losses come later, individually. The existing photo ending is only the current prototype slice. The user cited Limbo as inspiration for uncertain forward exploration, not a fixed known destination.
-- Thomas learns part of his identity, including his name and younger-brother relationship, before the body reveal. The discovery confirms a personal loss and does not restore all his memories. The suitcase's planned reddish/blood-like mark is noticed automatically during passage, without an inspection prompt; abandoned luggage needs no separate explanation beyond the catastrophe. The specific suitcase/brother connection remains proposed.
-- Survival and pursuit are approved direction, with death restarting from the last checkpoint and story/gameplay prioritized over difficulty. Pursuers, death/restart, and checkpoint encounter design are not implemented yet; do not claim otherwise or assume a combat system.
-- Selected buildings should become enterable, traversable side-scrolling interiors with meaningful routes and exploration choices. This is approved design direction, not implemented room-transition functionality. The current opening still uses one continuous world.
+- Thomas is in his late twenties. His younger brother is **Daniel**, around 19, becoming independent while Thomas still instinctively looks after him. The approved first-chapter scope is the existing opening plus two enterable buildings, a connecting passage, one optional exploration branch, identity/family discoveries, two short pursuit encounters with nearby checkpoints, and Daniel's death reveal. Duration is to be playtested. Chapter One uses environmental pursuits: an unstable trolley and rising water.
+- The full Chapter One follows local leads, branching exploration, recognition of memory loss, and the shadow's memory connection. It ends on proof of the younger brother's death, potentially showing his body. Do not end it with a live signal, contact from Grace, or confirmed survival. The parents' losses come later, individually. The photo is a mid-chapter discovery; chapterComplete is separate. The user cited Limbo as inspiration for uncertain forward exploration, not a fixed known destination.
+- Thomas learns part of his identity, including his name and younger-brother relationship, before the body reveal. The discovery confirms a personal loss and does not restore all his memories. The suitcase’s implemented reddish/blood-like mark is noticed automatically during passage, without an inspection prompt; abandoned luggage needs no separate explanation beyond the catastrophe. The specific suitcase/brother connection remains proposed.
+- Survival and pursuit are approved direction, with death restarting from the last checkpoint and story/gameplay prioritized over difficulty. Environmental pursuits, death/restart, and safe checkpoints are implemented. No combat system or creature is included.
+- Selected buildings should become enterable, traversable side-scrolling interiors with meaningful routes and exploration choices. Seven connected rooms are now implemented using one reusable Phaser scene and shared ChapterModel.
 - The opening establishes familiarity and attachment, not confirmed guilt or the complete identity reveal.
 - The user chose TypeScript + Phaser for a lightweight browser game. Continue with that stack unless the user changes direction. A desktop download, Godot port, backend, multiplayer, and cloud saves are outside the current scope.
 - Hollow Knight inspired the choice of 2D exploration, readable silhouettes, and layered depth. This does not commit the project to its combat or reproduce its characters, art, or world.
@@ -28,6 +28,10 @@ This file applies to the whole repository. It is a portable handoff for coding a
 - Current artwork is original procedural prototype illustration. Preserve recognizable character details, especially the scarf and torn cuff used by the photograph clue. Visual quality and browser weight both matter.
 
 ## Implemented opening
+
+Chapter One is complete as a playable prototype. On 2026-11-08, the user reported completing the playthrough and finding it satisfactory. This is first user playthrough acceptance, not measured pacing, final-art approval, or physical-device/browser coverage.
+
+Chapter Two's narrative direction is approved, not implemented: acknowledge Daniel's death, seek the family home through a residential district, show the shadow's remembered route failing against present damage, develop Grace as a person, and end with fiancée recognition plus credible evidence suggesting her initial survival and departure. Do not confirm either parent's death or Grace's present location/current survival in Chapter Two. No. 14 is the preferred home candidate, pending route design. Read `docs/chapter-two-design.md` before planning implementation; exact rooms, hazards, clues, and save changes remain undecided.
 
 The current version is **0.2.0** (implementation milestone dated 2026-10-29; not a claim of public deployment). Check `package.json` and the changelog for later versions.
 
@@ -75,7 +79,7 @@ Environment illustrations are painted once into seven reusable world chunks; the
 
 The existing canvas uses explicit `Phaser.WEBGL`; an earlier AUTO renderer configuration failed. Use APIs for the installed Phaser version: for example, the shadow uses `Phaser.TintModes.FILL`. Check dependency typings when adapting examples from other versions. Phaser audio is disabled because `Soundscape` owns audio.
 
-The implemented opening is one connected scene. Planned enterable buildings need reusable room/transition handling, shared progression, and compatible location-aware saves; the implementation approach is not yet chosen. Future chapters can get separate scenes and level data. The HTML interface does not currently need a React framework.
+ChapterModel extends OpeningModel and owns chapter progression and hazard clocks. OpeningScene restarts with the same model for each room; RoomView draws disposable interior objects. data/rooms.ts owns room entrances and geometry. Future chapters can get separate scenes and level data. The HTML interface does not currently need a React framework.
 
 ## Development and validation
 
@@ -109,7 +113,7 @@ After gameplay changes, check the affected interactions through actual browser i
 
 ## Save compatibility and offline behavior
 
-- `chasing-shadows:opening:v1` is the existing checkpoint key; `chasing-shadows:settings:v1` stores settings. App version 0.2.0 still uses save schema version 1. Do not rename keys or bump schemas casually.
+- `chasing-shadows:opening:v1` is the existing checkpoint key; `chasing-shadows:settings:v1` stores settings. Chapter saves use `chasing-shadows:chapter-one:v2` with a version-2 envelope around a compatible checkpoint plus room/marks/height. Read a valid chapter save first, otherwise import legacy data. Keep the legacy key unchanged.
 - Validate stored JSON as unknown input, normalize progression and spawn positions, and preserve the blocked-storage in-memory fallback. Legacy checkpoints without `lampOn` default to power on.
 - No runtime game asset, audio sample, font, or analytics dependency is fetched from a CDN. Preserve local asset/audio operation unless a requested feature changes this deliberately.
 - Local play works offline after dependencies are installed. Hosted offline reopening is **not guaranteed**: there is no service worker. Static hosting needs HTTP compression for gzip estimates to reflect actual transfer sizes.
@@ -117,11 +121,11 @@ After gameplay changes, check the affected interactions through actual browser i
 
 ## Verification status and remaining decisions
 
-The migration's recorded evidence includes 17 passing regression tests, strict types, formatting, production build/bundle checks, and a full in-app Chromium playthrough. That playthrough covered reusable lamp controls, wrong/correct access inputs, checkpoint reload, journal, photo ending, pause/settings, and layouts at 390 × 844 and 854 × 390.
+The migration’s historical evidence includes 17 passing regression tests, strict types, formatting, production build/bundle checks, and a full in-app Chromium playthrough. That playthrough covered reusable lamp controls, wrong/correct access inputs, checkpoint reload, journal, photo ending, pause/settings, and layouts at 390 × 844 and 854 × 390.
 
-Read `docs/verification.md` for details and dates. Do not claim fresh validation from that historical record. Physical-phone touch behavior, Safari/Firefox acceptance, assistive-technology auditing, low-end device performance/GPU memory, final art, independent human acceptance, and the original 10–15 minute pacing target remain unverified.
+Read `docs/verification.md` for details and dates. Do not claim fresh validation from that historical record. The user's first full playthrough is accepted; broader independent playtesting, physical-phone touch behavior, Safari/Firefox acceptance, assistive-technology auditing, low-end device performance/GPU memory, final art, and the original 10–15 minute pacing target remain unverified.
 
-There is no committed total chapter count or combat system. Chapter One's endpoint is Daniel's confirmed death after earlier partial identity recovery; the full game's ending remains open. Further catastrophe details, the parents' names/ages, exact routes, pursuer behavior and encounter details, and the proposed suitcase-to-brother connection still need design. Survival by luck is settled. Mara, successfully evacuated citizens, connected/special survival mechanisms, a Chapter One live-response ending, optional suitcase inspection, and a mandatory memory-sacrifice finale are superseded or unapproved proposals. Human playtests should still evaluate shadow readability, the lamp rule, curiosity, traversal, and eventual pursuit/recovery feel.
+There is no committed total chapter count or combat system. Chapter One's endpoint is Daniel's confirmed death after earlier partial identity recovery; the full game's ending remains open. Further catastrophe details, the parents' names/ages, later-chapter routes and the proposed suitcase-to-brother connection still need design. Chapter One’s room graph and environmental encounters are implemented. Survival by luck is settled. Mara, successfully evacuated citizens, connected/special survival mechanisms, a Chapter One live-response ending, optional suitcase inspection, and a mandatory memory-sacrifice finale are superseded or unapproved proposals. Human playtests should still evaluate shadow readability, the lamp rule, curiosity, traversal, and eventual pursuit/recovery feel.
 
 ## Working conventions and handoff upkeep
 
@@ -134,3 +138,17 @@ There is no committed total chapter count or combat system. Chapter One's endpoi
 - End work with what changed, what was checked, and any material remaining limits. Never equate a passing build with a successful playthrough or human acceptance.
 
 If your AI service does not automatically load `AGENTS.md`, start with: **"Read AGENTS.md and the referenced project docs, inspect the working tree, then continue with my request."**
+
+## Chapter implementation handoff
+
+The latest implementation adds ChapterModel, RoomView, rooms.ts, and chapter regression tests. The body scene follows name recognition and Daniel’s living-memory scene. The trolley and flood run only in their authored rooms and freeze under pause/focus loss. During danger, saves retain the pre-encounter checkpoint. Legacy finished maps to photograph discovery rather than chapter completion. See docs/verification.md for current checks and outstanding acceptance; do not infer final-art quality or physical-phone acceptance from the prototype.
+
+### Chapter review refinements (2026-10-30)
+
+Walking right past the unlocked workshop stays on Mercer Street. Only E/the interaction button enters the building; the forecourt remains explorable through to the rubble barrier. The main shelter service route still goes through the workshop. An Employee of the Month portrait names Thomas in both the forecourt and workshop, with a readable close-up interaction. The automatic observation remains available without opening a dialog.
+
+Daniel’s memory is now an 18-second sequence: recognition, handle repair, objection, bag handoff, and departure with timed captions. It pauses with gameplay and records completion once. Daniel has a brown-coat sheet and the rest-room body is purpose-painted horizontally, supported by bedding and a pillow, with a slack arm and dried blood. No new explanation for his death or Grace’s fate is added.
+
+### Death and retry (2026-10-30)
+
+Death freezes the failed encounter and opens an explicit YOU DIED screen with its cause, a checkpoint explanation, Try again, and Return to title. The player chooses when to retry; there is no automatic respawn timer. Escape cannot dismiss the death screen into a dead game state. Returning to title preserves the pre-encounter save; Continue starts there safely. Earlier journal discoveries remain intact.

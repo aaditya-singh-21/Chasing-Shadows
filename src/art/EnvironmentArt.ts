@@ -199,6 +199,7 @@ export class EnvironmentArt extends Painter {
       3,
     );
     this.rect(778, 674, 8, 6, '#b3aa81');
+    this.ellipse(794, 662, 4, 3, '#773e38');
     this.ctx.restore();
     this.text('07', 241, 660, 23, '#b9b28a', 'Georgia');
     this.glow(550, 445, 330, '210,190,132', 0.065);

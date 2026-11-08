@@ -258,7 +258,7 @@ export class OpeningModel {
       this.shadow.pose('knock', 4310);
       this.say('It knows this door.');
     }
-    if (x > 620 && x < 735) this.once('bag', () => this.say('A bag. Someone was going somewhere.'));
+
     if (x > 2020 && !this.flags.gateOpen)
       this.once('lamp', () => this.say('The latch is too high. But its shadow…'));
     if (x > 5540) this.once('photo', () => this.say('Something on the wall.'));

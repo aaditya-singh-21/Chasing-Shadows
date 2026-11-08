@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { CHARACTER, POSE } from '../art/CharacterArt.ts';
 import { ACCESS, LAMP, WORLD } from '../data/opening.ts';
-import type { OpeningModel } from '../core/OpeningModel.ts';
+import type { ChapterModel as OpeningModel } from '../core/ChapterModel.ts';
 
 export class Shadow extends Phaser.GameObjects.Sprite {
   constructor(scene: Phaser.Scene) {

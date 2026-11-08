@@ -55,7 +55,7 @@ export function createCharacterTexture(scene: Phaser.Scene): void {
   });
 }
 
-function drawTraveller(a: Painter, frame: number): void {
+export function drawTraveller(a: Painter, frame: number, daniel = false): void {
   const c = a.ctx;
   const phase = frame < 8 ? (frame * Math.PI) / 4 : 0;
   const walking = frame < 8;
@@ -65,8 +65,8 @@ function drawTraveller(a: Painter, frame: number): void {
   const breath = frame >= 8 && frame < 12 ? Math.sin(((frame - 8) * Math.PI) / 2) * 0.9 : 0;
   const bob = (walking ? -Math.abs(Math.cos(phase)) * 1.6 : breath) + crouch;
   const lean = frame === POSE.brake ? -0.05 : walking ? 0.035 : airborne ? -0.03 : 0;
-  const coat = '#4e6360',
-    coatLight = '#6d8174',
+  const coat = daniel ? '#726555' : '#4e6360',
+    coatLight = daniel ? '#9c8d72' : '#6d8174',
     skin = '#c3b9a0';
   c.save();
   c.translate(0, bob);
@@ -197,7 +197,7 @@ function drawTraveller(a: Painter, frame: number): void {
       [-1 + hemSway, -78],
       [3, -96],
     ],
-    '#ac8c60',
+    daniel ? '#aaa48c' : '#ac8c60',
   );
   a.line(-5, -78, -2, -80, '#d8bc7b66');
 
@@ -232,4 +232,23 @@ function drawTraveller(a: Painter, frame: number): void {
   a.line(hand[0] - 3, hand[1] - 5, hand[0] - 5, hand[1] - 1, '#d9d0aa', 1);
   a.ellipse(hand[0], hand[1], 3.5, 4.5, skin);
   c.restore();
+}
+
+export function createDanielTexture(scene: Phaser.Scene): void {
+  if (scene.textures.exists('daniel')) return;
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 528;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) throw new Error('Daniel artwork unavailable');
+  const a = new Painter(ctx);
+  for (let frame = 0; frame < 24; frame++) {
+    ctx.save();
+    ctx.translate((frame % 8) * 128 + 64, Math.floor(frame / 8) * 176 + 164);
+    drawTraveller(a, frame, true);
+    ctx.restore();
+  }
+  const texture = scene.textures.addCanvas('daniel', canvas);
+  if (!texture) throw new Error('Daniel texture unavailable');
+  scene.textures.addSpriteSheet('daniel', texture, { frameWidth: 128, frameHeight: 176 });
 }

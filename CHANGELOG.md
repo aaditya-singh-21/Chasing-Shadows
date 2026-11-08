@@ -8,11 +8,23 @@ Record future changes under **Unreleased** as part of the same work. Use Added, 
 
 ### Added
 
+- 2026-11-08: Recorded the approved Chapter Two direction in `docs/chapter-two-design.md`: Daniel's quiet farewell, a residential search for home, fallible shadow memories, Grace's relationship reveal, and evidence suggesting her initial survival. Exact routes, clues, and hazards remain to be designed; no Chapter Two gameplay or save changes are included.
+- Playable Chapter One: seven connected rooms, enterable workshop and shelter, courtyard loop and inside-opened shelter shortcut.
+- Thomas’s automatic name discovery, Daniel’s staged living memory, persistent chapter journal entries, and a separate body-discovery ending.
+- Trolley and flood escapes with 2.5-second warnings, automatic death recovery, pause-safe timing, and checkpoints outside active hazards.
+- Version-2 chapter storage with validated legacy import and preservation of the original save key, plus chapter regression tests.
+
 - This changelog, linked from the README and included in formatting checks.
 - A repository-wide `AGENTS.md` handoff guide covering the game's direction, implemented opening, architecture, development workflow, save compatibility, and verification limits for future AI contributors.
 - A story/world design record naming Thomas and his fiancée Grace, establishing the other citizens' deaths including Thomas's family, and recording the approved direction of enterable buildings. Proposed reveal pacing, interior routes, and transition/save requirements are separated from implemented gameplay and unresolved world rules.
 
 ### Changed
+
+- 2026-11-08: Recorded the user's satisfactory full Chapter One playthrough and playable-prototype completion, separately from remaining device, performance, pacing, and broader playtest acceptance.
+- Replaced automatic blackout/restart with a persistent YOU DIED screen, cause-specific messages, focused Try again button, and Return to title. Death freezes the encounter until the player chooses; retry restores the safe checkpoint without losing earlier discoveries.
+
+- 2026-10-30: Workshop entry now requires E; the street continues past the door to a readable employee portrait and a blocked forecourt. Thomas can discover his name outside or inside the workshop.
+- Expanded Daniel’s memory to 18 seconds with staged repair, bag handoff, departure, fades, and timed dialogue. Added Daniel’s own brown-coat character sheet and a dedicated horizontal body illustration with pillow, bedding, slack arm, and dried blood instead of rotating the standing sprite.
 
 - Refined the story design to an altered physical city, a shadow formed from Thomas's old memories, and a family of parents and a younger brother. Chapter One now ends on proof of the brother's death, with the parents' losses revealed individually later. Removed the proposed Chapter One live-response payoff and documented a proposed suitcase/brother connection; these are design updates, not new playable scenes.
 - Specified automatic observation of a reddish/blood-like suitcase mark, partial identity recovery before the brother's death reveal, and forgiving survival/pursuit with last-checkpoint recovery. Removed the proposed optional suitcase inspection and need for a luggage-abandonment explanation. These mechanics and scenes remain planned rather than implemented.

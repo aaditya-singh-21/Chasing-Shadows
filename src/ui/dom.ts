@@ -1,4 +1,9 @@
 interface Elements {
+  'death-dialog': HTMLDialogElement;
+  'death-reason': HTMLElement;
+  'death-checkpoint': HTMLElement;
+  'retry-button': HTMLButtonElement;
+  'death-menu': HTMLButtonElement;
   world: HTMLCanvasElement;
   'game-shell': HTMLElement;
   'title-screen': HTMLElement;
@@ -53,7 +58,12 @@ interface Elements {
 }
 
 export type DialogId =
-  'pause-dialog' | 'help-dialog' | 'journal-dialog' | 'photo-dialog' | 'ending-dialog';
+  | 'pause-dialog'
+  | 'help-dialog'
+  | 'journal-dialog'
+  | 'photo-dialog'
+  | 'ending-dialog'
+  | 'death-dialog';
 const cache = new Map<keyof Elements, HTMLElement>();
 
 export function ui<K extends keyof Elements>(id: K): Elements[K] {

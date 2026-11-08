@@ -1,6 +1,6 @@
 # Story and world progression
 
-Design record updated 2026-10-29. This document separates user-approved story/world decisions from proposed execution. It contains spoilers. These decisions have not yet been implemented as new dialogue, rooms, transitions, or checkpoint fields in the playable opening.
+Design record updated 2026-11-08. This document separates user-approved story/world decisions from proposed execution. It contains spoilers. Chapter One is implemented as a playable prototype; the user reports completing a playthrough and finding it satisfactory. Chapter Two's direction is approved but not implemented. See verification.md for evidence and remaining acceptance limits.
 
 ## Confirmed direction
 
@@ -16,8 +16,21 @@ Design record updated 2026-10-29. This document separates user-approved story/wo
 - **Chapter One ends when Thomas finds proof that his younger brother died**, establishing that people died rather than merely vanished. The brother's body may appear in this scene. The chapter does not end with a live signal, proof Grace is alive, or someone explicitly trying to contact Thomas. His parents' deaths are discovered individually later; do not disclose the entire family loss at once.
 - Thomas recovers part of his identity before finding his brother. Establish his name and his relationship to his younger brother through earlier encounters, with room for additional fragments of his work/family life. The body discovery confirms a loss he can already understand; it does not instantly restore his identity or all his memories.
 - The suitcase receives a small reddish/blood-like mark that Thomas notices automatically during ordinary passage. This is a natural story beat without an inspection prompt or optional-interaction dependency. Its abandonment amid the catastrophe needs no separate explanation. Exact visual execution and its proposed personal connection to the brother still need implementation/design.
-- The game has a survival/pursuit direction. Death restarts the player from the last checkpoint. Gameplay and story take priority over difficulty; the pursuing threat, encounter rules, and exact checkpoint placement are not yet decided.
+- The game has a survival/pursuit direction. Death restarts the player from the last checkpoint. Gameplay and story take priority over difficulty; the chapter implements a service trolley and rising water, with safe checkpoints before each escape.
 - Expand selected buildings into enterable, traversable interiors while retaining side-scrolling 2D movement. Doors should lead to meaningful spaces and routes, not just animate while the player walks past their facades.
+
+## Chapter Two: approved direction (2026-11-08)
+
+The user approved the continuation from Daniel's death into a search for the people Thomas remembers. Chapter One asks who he is and what happened to Daniel; Chapter Two asks who else matters to him and whether he can still reach them. This is approved narrative direction, not playable implementation or a finished level plan. See [chapter-two-design.md](chapter-two-design.md) for the sequence and open execution decisions.
+
+- Begin with a quiet continuation in the rest room. Thomas covers Daniel with the blanket before leaving. His shadow initially offers the remembered helping hand, then stops after Thomas's action, demonstrating that it can learn from the present.
+- Thomas seeks his family home through a remembered address or recognizable landmark. He does not yet know that every other citizen died. No. 14 is the preferred candidate for the parents' home, linking back to the unanswered knock; its exact use and connection to the new route still need to be settled.
+- Explore a damaged residential district through a main street, apartment interior, courtyard, and useful repair-shop or communal-utility connection. The family home is the central discovery space. Exact rooms, hazards, entrances, and routes remain to be designed.
+- Reuse lighting and shadow interactions in new arrangements. A remembered route is now broken, requiring Thomas to find another way; the shadow's old knowledge remains useful but fallible.
+- Establish Grace's personality and relationship through domestic details and a brief memory. She has humour, opinions, and initiative, rather than existing only as someone to find.
+- Introduce an ambiguous sign of Grace's post-catastrophe passage that also helps navigation. An improvised repair with a personal identifying detail is a candidate, not a settled clue mechanism.
+- End with Thomas recovering that Grace is his fiancée and finding credible evidence suggesting that she survived the initial disaster and left the neighbourhood. He gains a direction, not her current location, proof she is still alive, or live contact.
+- Do not confirm either parent's death in Chapter Two. Their separate discoveries remain for later progression. Hope does not undo Daniel's death; avoid structuring every chapter around another body reveal.
 
 ## Working world model and unresolved rules
 
@@ -37,14 +50,14 @@ Keep the premise simple. Their lucky survival is a settled answer, not another m
 
 ## Chapter One: approved discovery arc
 
-The chapter's broad progression and ending are approved. Exact locations, scene order within the middle, puzzles, and duration still need design. The current playable slice ends at the staff photograph; the full chapter extends beyond it.
+The chapter's broad progression and ending are approved. Exact locations, scene order within the middle, puzzles, and duration still need design. The staff photograph is now a mid-chapter discovery; the implemented chapter ends after Daniel’s body scene.
 
 Approved scope for the first complete chapter:
 
 - Retain and expand the existing tram, station, and street opening.
 - Add two enterable buildings, a connecting passage, and one optional exploration branch.
 - Establish identity and family details before the final discovery.
-- Include two short pursuit encounters with nearby checkpoints; the pursuer itself remains undecided.
+- Include two short pursuit encounters with nearby checkpoints; the dangers are an unstable trolley and rising water.
 - End with Daniel's confirmed death.
 - Tune duration through playtesting rather than committing to an unmeasured runtime.
 
@@ -69,33 +82,33 @@ Confirmed refinement direction: add a small reddish/blood-like mark and let Thom
 
 The proposed connection to the younger brother can use a repair Thomas made to the handle, a remembered gesture, or another recognizable detail. Its exact form is still a proposal. If used, let its personal meaning become clear as Thomas recovers identity fragments before the ending. The catastrophe accounts for the abandoned luggage: do not require a separate explanation of how it was left on Tram 07 or a detailed luggage timeline.
 
-Keep the movement tutorial functional. Automatic presentation removes the need for optional-inspection contingencies in this beat. Do not imply that the reddish mark, automatic reaction, brother discovery, or related save flags have already been implemented.
+Keep the movement tutorial functional. Automatic presentation removes the need for optional-inspection contingencies in this beat. The reddish mark, automatic reaction, brother discovery, and persistent chapter milestones are implemented in the prototype.
 
 ## Survival, pursuit, and checkpoint recovery
 
-The approved direction includes survival and pursuit, with death returning the player to the last checkpoint. Prioritize the experience of exploration, tension, movement, and story over high difficulty or repeated punishment. The current opening does not yet implement this death/restart or pursuit system.
+The approved direction includes survival and pursuit, with death returning the player to the last checkpoint. Prioritize the experience of exploration, tension, movement, and story over high difficulty or repeated punishment. The playable chapter implements both environmental pursuits and automatic death/restart.
 
 Proposed encounter principles: introduce a threat with enough information to react, use readable escape routes, restart quickly, and place checkpoints to avoid replaying lengthy traversal or emotional scenes. Alternate tense encounters with spaces where Thomas can explore and process discoveries. Automatic story beats should not repeatedly interrupt retries; specify their checkpoint/replay behavior during implementation.
 
-The nature of the pursuer, whether there are multiple threat types, how the shadow helps during pursuit, and the first encounter's placement remain open. Do not assume a particular monster, combat system, chase timer, or supernatural explanation for player respawns without a design decision.
+Chapter One uses environmental danger: an unstable trolley in the service passage and rising water in the lower shelter. No creature is introduced. Do not assume a particular monster, combat system, chase timer, or supernatural explanation for player respawns without a design decision.
 
 Pursuit and survival are the gameplay motive. The previously described shadow-like presence is an unapproved enemy proposal. A threat can be designed around understandable danger and escape behavior without making it responsible for Thomas and Grace's survival or the whole catastrophe.
 
 ## Grace's presence and agency
 
-Grace's survival is not Chapter One's payoff. Early details can connect Thomas to her without confirming present activity. Later evidence can become harder to explain as an old memory, but its timing and mechanism remain undecided.
+Grace's survival is not Chapter One's payoff. Early details can connect Thomas to her without confirming present activity. Chapter Two's approved endpoint introduces credible evidence suggesting her initial survival and departure, alongside recognition that she is his fiancée. The exact clue mechanism remains undecided; it does not confirm her current location or continued survival to Thomas.
 
 The opening's two-knocks/pause/one-knock rhythm can remain a remembered habit. Do not add a live answer or an explicit attempt to contact Thomas to Chapter One. Any later responsive exchange would be a separate proposal requiring established world rules.
 
 Every major clue should change the player's available action or destination: identify a building, explain a route, open a passage, or reinterpret an earlier location. Avoid a chain of collectible notes that all merely say she might be alive.
 
-Grace should have made decisions and affected the environment during Thomas's absence. Her route, repairs, and attempts at communication should explain how Thomas can progress. She is a participant with her own objective, not only the reward at the end of his grief.
+For later chapters, Grace can have made decisions and affected the environment during Thomas’s absence. Her route, repairs, and attempts at communication should explain how Thomas can progress. She is a participant with her own objective, not only the reward at the end of his grief.
 
 The family losses remain real even if Grace is found. Her survival does not undo the catastrophe. Let hope and grief coexist without requiring every location to add another death reveal.
 
 ## Enterable buildings and exploration
 
-The user-approved direction is a network of selected exterior and interior spaces. The particular topology below is a proposal.
+The implemented network follows the approved exterior/interior direction. The table below records the original location rationale; current room connections are defined in rooms.ts.
 
 Keep ordinary movement side-on. Near a usable facade door, the player deliberately interacts to enter a separate side-scrolling room. Show a short transition and spawn beside the corresponding interior doorway. Exit through a clear doorway to return to the matching street entrance. Stairs, ladders, or authored connectors can link floors while preserving 2D movement.
 
@@ -127,4 +140,22 @@ These are planning requirements, not claims of existing functionality. Current a
 
 ## Next design work
 
-Outline the approved chapter scope's exact routes, including identity fragments before Daniel's discovery and the automatic suitcase observation. Develop the brothers' shared history before writing that reveal. Define the pursuit threat, escape affordances, and checkpoint recovery for the two short encounters. Keep the physical setting and body discovery coherent without inventing a special survival explanation. Leave the parents' later reveal order, Grace's later survival clues, and the final ending open until their progression is designed. No new gameplay is implemented by this record.
+Chapter One is complete as a playable prototype, with the user's first full playthrough reported as satisfactory. Next, turn the approved Chapter Two direction into a playable sequence: settle the home address and route connection, required relationship discoveries, Grace's credible post-catastrophe clue, environmental encounters, and safe checkpoints. The approval does not select exact geometry, hazard mechanics, a chapter title, or a runtime target. Keep the parents' later reveal order, catastrophe mechanism, total chapter count, and final ending open. See [chapter-two-design.md](chapter-two-design.md).
+
+## Implemented Chapter One
+
+Seven rooms are playable through a shared model and reusable scene: street, workshop, service passage, shelter hall, shelter lower floor, shelter rest room, and optional courtyard. The workshop establishes Thomas’s name and shows a personal photograph. A 18-second staged memory in the shelter identifies Daniel as his younger brother. The nine-second automatic rest-room recognition ends with Daniel’s death confirmed. Grace’s fate and the parents’ deaths are not revealed.
+
+The suitcase reddish mark is automatic. The courtyard loops back to Mercer Street. The shelter shortcut opens from inside. Both hazards provide warning, checkpoint recovery, and completed-encounter persistence. The optional staff photograph no longer ends the chapter. The bag-owner/repair history remains a proposed connection rather than a separate inventory quest.
+
+Art uses simplified procedural scenery and the shared traveller sheet with Daniel’s tint/scale and poses. This is prototype staging, not final illustration, voice acting, or independently playtested emotional pacing.
+
+### Chapter review refinements (2026-10-30)
+
+Walking right past the unlocked workshop stays on Mercer Street. Only E/the interaction button enters the building; the forecourt remains explorable through to the rubble barrier. The main shelter service route still goes through the workshop. An Employee of the Month portrait names Thomas in both the forecourt and workshop, with a readable close-up interaction. The automatic observation remains available without opening a dialog.
+
+Daniel’s memory is now an 18-second sequence: recognition, handle repair, objection, bag handoff, and departure with timed captions. It pauses with gameplay and records completion once. Daniel has a brown-coat sheet and the rest-room body is purpose-painted horizontally, supported by bedding and a pillow, with a slack arm and dried blood. No new explanation for his death or Grace’s fate is added.
+
+### Death-screen refinement (2026-10-30)
+
+After a failed survival encounter, the player sees YOU DIED with cause-specific text and chooses Try again or Return to title. The failed world stays frozen until the choice; earlier discoveries and the last safe checkpoint are preserved. This supersedes the original automatic blackout/respawn presentation without adding any story explanation for retries.

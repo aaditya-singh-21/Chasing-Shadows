@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { OpeningModel } from './core/OpeningModel.ts';
+import { ChapterModel as OpeningModel } from './core/ChapterModel.ts';
 import { OpeningScene } from './scenes/OpeningScene.ts';
 import { AppController } from './ui/AppController.ts';
 import { MOVEMENT } from './data/opening.ts';

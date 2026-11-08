@@ -1,5 +1,5 @@
 import type Phaser from 'phaser';
-import type { OpeningModel } from '../core/OpeningModel.ts';
+import type { ChapterModel as OpeningModel } from '../core/ChapterModel.ts';
 import type { MotionInput } from './Movement.ts';
 
 export class GameInput {

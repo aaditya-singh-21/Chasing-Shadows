@@ -1,7 +1,8 @@
-import type { OpeningModel } from '../core/OpeningModel.ts';
+import type { ChapterModel as OpeningModel } from '../core/ChapterModel.ts';
 import type { GameEvent, SaveData } from '../core/types.ts';
 import type { OpeningScene } from '../scenes/OpeningScene.ts';
 import { ACCESS, NOTES } from '../data/opening.ts';
+import { employeePortraitSVG } from '../art/ChapterDetails.ts';
 import { photographSVG } from '../art/photograph.ts';
 import { Soundscape } from '../systems/Soundscape.ts';
 import { SaveStore, SETTINGS_KEY, notesFromFlags } from '../systems/SaveStore.ts';
@@ -83,8 +84,46 @@ export class AppController {
         this.accessFeedbackUntil = this.model.time + 2;
         this.updateSequence();
         break;
+      case 'identity':
+        this.photoStage = 2;
+        ui('photograph').innerHTML = employeePortraitSVG();
+        ui('photograph').classList.remove('remembering');
+        ui('photograph').setAttribute(
+          'aria-label',
+          'Employee of the Month. Portrait of Thomas, with his coat and amber scarf.',
+        );
+        ui('photo-title').textContent = 'Thomas. That is my name.';
+        ui('photo-description').textContent =
+          'City Transit Authority · Employee of the Month · THOMAS · Maintenance, Terminus 07. The face and scarf match mine.';
+        this.setPhotoButton('Remember my name');
+        this.openDialog('photo-dialog');
+        break;
       case 'photo':
         this.openPhoto();
+        break;
+      case 'death': {
+        const copy = {
+          trolley: 'The maintenance trolley caught you.',
+          flood: 'The rising water overtook you.',
+          unknown: 'You could not make it through.',
+        };
+        ui('death-reason').textContent = copy[event.value];
+        ui('death-checkpoint').textContent =
+          this.model.room === 'shelter-lower'
+            ? 'Restart at the dry lower-shelter entrance. Your memory of Daniel is safe.'
+            : this.model.room === 'service-passage'
+              ? 'Restart at the service-passage entrance, before the trolley moves.'
+              : 'Restart from your last safe checkpoint.';
+        this.save(this.model.snapshot(), false);
+        this.openDialog('death-dialog');
+        ui('retry-button').focus();
+        break;
+      }
+      case 'chapter-end':
+        this.openDialog('ending-dialog');
+        break;
+      case 'room':
+        this.scene.clearInput();
         break;
       case 'start':
         break;
@@ -166,6 +205,29 @@ export class AppController {
       entry.append(number, title, text);
       entries.append(entry);
     });
+    const chapterNotes: Record<string, string> = {
+      identity:
+        'Thomas · Maintenance. Employee of the Month. The portrait has my face and scarf. I know my name.',
+      brother:
+        'Daniel is my younger brother. I remember mending his bag while he insisted he could carry it.',
+      trolley: 'The damaged trolley stopped at the buffer. I reached the shelter.',
+      flood: 'The lower shelter flooded. I reached the upper landing.',
+      chapterComplete: 'I found Daniel in the rest room. My brother is dead.',
+      courtyard: 'A repaired water pump. The same mark as the workshop tools.',
+      suitcase: 'A dark red mark on the suitcase handle.',
+    };
+    for (const [id, text] of Object.entries(chapterNotes))
+      if (this.model.marks.has(id)) {
+        const entry = document.createElement('article');
+        entry.className = 'journal-entry';
+        const title = document.createElement('h3');
+        title.textContent =
+          id === 'chapterComplete' ? 'Daniel' : id === 'brother' ? 'My brother' : 'A fragment';
+        const copy = document.createElement('p');
+        copy.textContent = text;
+        entry.append(title, copy);
+        entries.append(entry);
+      }
     ui('journal-dot').hidden = true;
     this.openDialog('journal-dialog');
   }
@@ -245,6 +307,22 @@ export class AppController {
   }
 
   private bind(): void {
+    ui('death-dialog').addEventListener('cancel', (event) => event.preventDefault());
+    ui('retry-button').addEventListener('click', () => {
+      if (this.model.sequence !== 'death') return;
+      this.closeDialogs();
+      if (this.model.retry()) {
+        this.scene.clearInput();
+        this.sound.suspend(false);
+        ui('world').focus({ preventScroll: true });
+      }
+    });
+    ui('death-menu').addEventListener('click', () => ui('menu-button').click());
+
+    document.getElementById('ending-journal')?.addEventListener('click', () => this.journal());
+    document
+      .getElementById('ending-menu')
+      ?.addEventListener('click', () => ui('menu-button').click());
     const m = this.model;
     ui('begin-button').addEventListener('click', () => this.begin());
     ui('continue-button').addEventListener('click', () => this.begin(true));
@@ -322,12 +400,16 @@ export class AppController {
           this.openDialog(previous);
           return;
         }
-        m.paused = !m.started || m.inTitle;
+        m.paused = !m.started || m.inTitle || m.sequence === 'death';
         this.sound.suspend(m.paused);
         if (!m.paused) ui('world').focus({ preventScroll: true });
       }),
     );
     ui('photo-next').addEventListener('click', () => {
+      if (this.photoStage === 2) {
+        ui('photo-dialog').close();
+        return;
+      }
       if (this.photoStage === 0) {
         this.photoStage = 1;
         ui('photograph').classList.add('remembering');
@@ -342,7 +424,7 @@ export class AppController {
         this.sound.play('unease');
       } else {
         m.finish();
-        this.openDialog('ending-dialog');
+        ui('photo-dialog').close();
       }
     });
     ui('keep-exploring').addEventListener('click', () => ui('ending-dialog').close());

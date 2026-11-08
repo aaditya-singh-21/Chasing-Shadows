@@ -87,7 +87,7 @@
           <span>AN EMPTY CITY. A FAMILIAR STRANGER.</span
           ><button class="text-button" id="title-controls">
             How to play <span aria-hidden="true">↗</span></button
-          ><span class="version">OPENING · v0.2</span>
+          ><span class="version">CHAPTER ONE · v0.2</span>
         </footer>
       </section>
 
@@ -215,8 +215,8 @@
         </dl>
         <p class="quiet-note">
           Hold jump for a higher leap, or release for a short hop. You can also click the ground to
-          walk. Hold the arrow buttons on touch screens. There is no combat or time limit in this
-          opening.
+          walk. Hold the arrow buttons on touch screens. There is no combat. During escapes, keep
+          moving. After death, choose Try again to return to the last safe checkpoint.
         </p>
         <label class="setting-row"
           ><span>Reduce ambient motion</span><input type="checkbox" id="reduced-motion" /></label
@@ -249,19 +249,36 @@
         </button>
       </dialog>
 
+      <dialog
+        id="death-dialog"
+        class="modal death-modal"
+        aria-labelledby="death-title"
+        aria-describedby="death-reason death-checkpoint"
+      >
+        <p class="eyebrow">CHASING SHADOWS · THE LAST STOP</p>
+        <div class="death-emblem" aria-hidden="true">◒</div>
+        <h2 id="death-title">YOU DIED</h2>
+        <p id="death-reason">You could not make it through.</p>
+        <div class="death-rule" aria-hidden="true"></div>
+        <p id="death-checkpoint">Restart from your last safe checkpoint.</p>
+        <button class="primary-button" id="retry-button" autofocus>
+          Try again <span aria-hidden="true">⟶</span>
+        </button>
+        <button class="text-button" id="death-menu">Return to title</button>
+        <p class="quiet-note">Your discoveries before the encounter are saved.</p>
+      </dialog>
       <dialog id="ending-dialog" class="modal ending-modal" aria-labelledby="ending-title">
-        <p class="eyebrow">CHAPTER 01 / END OF OPENING</p>
+        <p class="eyebrow">CHAPTER ONE COMPLETE</p>
         <div class="ending-mark" aria-hidden="true">◒</div>
-        <h2 id="ending-title">Someone you knew.</h2>
-        <p>
-          Your shadow reaches for the person beside you.<br />For a moment, its hand won’t stop
-          trembling.
-        </p>
-        <p class="ending-question">Who did you come back for?</p>
+        <h2 id="ending-title">The Last Stop</h2>
+        <p>Daniel is dead. My brother is dead.</p>
+        <p class="ending-question">The city has kept its silence.</p>
         <button class="primary-button" id="keep-exploring">
           Stay a little longer <span aria-hidden="true">⟶</span></button
-        ><button class="text-button" id="replay-button">Replay the opening</button>
-        <p class="quiet-note">Chasing Shadows · A first playable opening</p>
+        ><button class="text-button" id="replay-button">Replay Chapter One</button>
+        <button class="text-button" id="ending-journal">Read journal</button
+        ><button class="text-button" id="ending-menu">Return to title</button>
+        <p class="quiet-note">Your discoveries and checkpoint are saved on this device.</p>
       </dialog>
       <div id="screen-reader-status" class="sr-only" role="status" aria-live="polite"></div>
       <p id="fatal-error" class="fatal-error" hidden></p>

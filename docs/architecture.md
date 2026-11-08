@@ -6,7 +6,7 @@ Chasing Shadows is browser-first. TypeScript provides checked state and event co
 
 ## Boundaries
 
-`main.ts` creates an `OpeningModel`, an `OpeningScene`, and an `AppController`, then boots Phaser. It does not contain gameplay or a second requestAnimationFrame loop.
+`main.ts` creates a `ChapterModel`, an `OpeningScene`, and an `AppController`, then boots Phaser. It does not contain gameplay or a second requestAnimationFrame loop.
 
 `OpeningModel` owns discoveries, the journal, the current interaction, and checkpoint state. It composes `LampPuzzle`, `AccessPuzzle`, and `ShadowBehavior`. Its event union constrains event names and payloads at compile time. It imports no Phaser or DOM implementation.
 
@@ -40,8 +40,14 @@ The access panel is repeatable after solving. Correct repetition recalls the rhy
 
 ## Deliberate limits
 
-The opening remains one connected scene, with separate logical location sections. Four scene classes would add transitions without helping this short continuous level. More chapters should use separate Phaser scenes and their own level data.
+The chapter uses one reusable Phaser scene. A room event restarts that scene with the same ChapterModel. Shutdown removes room objects, colliders, input listeners, and subscriptions. Seven room definitions describe doors and safe entry locations; interior graphics are recreated per visit. Shared character and original street textures are cached, with a fixed texture set rather than a growing cache per visit. No GPU-memory benchmark is claimed.
+
+ChapterModel extends OpeningModel to preserve the original puzzle contracts. It owns room travel, chapter milestones, hazard clocks, and memory/ending/death sequences. The trolley warns for 2.5 seconds and moves at 210 units/s; water warns for 2.5 seconds and rises at 35 units/s. The lower shelter uses the shared floorAt staircase geometry and vertical camera following.
+
+SaveStore writes a version-2 envelope (`{ version: 2, checkpoint }`) under the new chapter key; the internal checkpoint retains the compatible opening fields plus room, marks, and safe floor height. Validation reconstructs safe floor positions and moves unfinished encounter saves to their entrance. During danger or a sequence, snapshot returns the last safe checkpoint. Legacy finished means photo examined, never chapter complete. The old save key is not overwritten by chapter play.
 
 The HTML interface is retained for keyboard-accessible controls and dialogs. No React dependency is needed for this scope. The UI controller remains larger than the individual systems; split it further if journal/menu features grow.
 
 The build is static and does not add a service worker or hosting account. No desktop engine port, multiplayer, backend, or cloud save is included.
+
+Death is a model event carrying a typed cause. The model enters a terminal-for-this-attempt death sequence and stops advancing until retry() is called. AppController owns the death dialog, keyboard focus, non-dismissal on Escape, and title navigation. retry() accepts only the dead state and restores the last safe checkpoint through the normal start/room lifecycle. Death is not persisted as a resumable checkpoint.

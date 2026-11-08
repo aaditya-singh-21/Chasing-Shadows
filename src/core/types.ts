@@ -1,3 +1,4 @@
+export type DeathCause = 'trolley' | 'flood' | 'unknown';
 export type Facing = -1 | 1;
 export type Mode = 'walk' | 'approach-lamp' | 'lamp' | 'panel';
 export type ShadowMode = 'follow' | 'linger' | 'project' | 'reach' | 'knock' | 'code';
@@ -24,7 +25,21 @@ export interface ShadowState {
   facing: Facing;
 }
 
+export type RoomId =
+  | 'street'
+  | 'workshop'
+  | 'service-passage'
+  | 'shelter-hall'
+  | 'shelter-lower'
+  | 'shelter-rest'
+  | 'courtyard';
+export interface ChapterState {
+  room: RoomId;
+  marks: string[];
+  y: number;
+}
 export interface SaveData {
+  chapter?: ChapterState;
   version: 1;
   flags: Flags;
   x: number;
@@ -33,12 +48,25 @@ export interface SaveData {
 }
 
 export interface Interaction {
-  id: 'tram' | 'lamp' | 'notice' | 'door' | 'panel' | 'photo' | 'mug';
+  id:
+    | 'identity'
+    | 'travel'
+    | 'power'
+    | 'tram'
+    | 'lamp'
+    | 'notice'
+    | 'door'
+    | 'panel'
+    | 'photo'
+    | 'mug';
   label: string;
 }
 
 export type GameEvent =
   | { type: 'start' }
+  | { type: 'room' }
+  | { type: 'chapter-end' }
+  | { type: 'death'; value: DeathCause }
   | { type: 'sound'; value: SoundId }
   | { type: 'say'; value: { text: string; seconds: number } }
   | { type: 'save' | 'autosave'; value: SaveData }
@@ -46,6 +74,7 @@ export type GameEvent =
   | { type: 'puzzle'; value: 'lamp' | 'panel' | null }
   | { type: 'sequence'; value: number }
   | { type: 'sequence-wrong' }
+  | { type: 'identity' }
   | { type: 'photo' };
 
 export type GameListener = (event: GameEvent) => void;

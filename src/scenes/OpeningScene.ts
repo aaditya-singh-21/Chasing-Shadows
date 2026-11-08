@@ -1,5 +1,9 @@
 import Phaser from 'phaser';
-import type { OpeningModel } from '../core/OpeningModel.ts';
+import { createEmployeeTexture } from '../art/ChapterDetails.ts';
+import { ROOMS, LOWER_STEPS, SERVICE_OBSTACLES } from '../data/rooms.ts';
+import { RoomView } from '../art/RoomView.ts';
+import { POSE as CHAPTER_POSE } from '../art/CharacterArt.ts';
+import type { ChapterModel as OpeningModel } from '../core/ChapterModel.ts';
 import { createWorldTextures } from '../art/WorldTextures.ts';
 import { createCharacterTexture, POSE } from '../art/CharacterArt.ts';
 import { Player } from '../entities/Player.ts';
@@ -29,6 +33,7 @@ export class OpeningScene extends Phaser.Scene {
   private skylines: Phaser.GameObjects.TileSprite[] = [];
   private sky!: Phaser.GameObjects.Image;
   private moon!: Phaser.GameObjects.Arc;
+  private interior: RoomView | null = null;
   private ready = false;
   private snapCamera = true;
   private lookAhead = 110;
@@ -41,8 +46,27 @@ export class OpeningScene extends Phaser.Scene {
   }
 
   create(): void {
+    this.interior = null;
+    const offRoom = this.model.events.on((event) => {
+      if (event.type === 'room') this.scene.restart();
+    });
+    this.events.once('shutdown', offRoom);
+    if (this.model.room !== 'street') {
+      this.createInterior();
+      return;
+    }
     createWorldTextures(this);
     createCharacterTexture(this);
+    createEmployeeTexture(this);
+    this.add.image(5920, 435, 'employee-award').setDisplaySize(245, 257).setDepth(4);
+    this.add
+      .text(6200, 550, 'ROAD CLOSED\nRubble ahead · service access through workshop', {
+        fontFamily: 'Georgia',
+        fontSize: 16,
+        color: '#d3c9a6',
+        wordWrap: { width: 190 },
+      })
+      .setDepth(5);
     this.cameras.main.setOrigin(0, 0);
     this.sky = this.add.image(0, 0, 'sky').setOrigin(0).setScrollFactor(0).setDepth(-100);
     this.moon = this.add.circle(0, 185, 29, 0xbdcab7, 0.13).setScrollFactor(0).setDepth(-95);
@@ -86,7 +110,21 @@ export class OpeningScene extends Phaser.Scene {
     this.contact = this.add.image(WORLD.startX, WORLD.floor + 3, 'contact').setDepth(14);
     this.silhouette = new Shadow(this);
     this.traveller = new Player(this);
+    this.traveller.resetAt(this.model.player);
     this.makeColliders();
+    this.staticBody(6410, 615, 180, 170);
+    const rubble = this.add.graphics().setDepth(8);
+    for (const [x, y, w, h] of [
+      [6320, 650, 130, 50],
+      [6370, 585, 160, 90],
+      [6470, 550, 130, 150],
+    ]) {
+      rubble.fillStyle(0x364b49);
+      rubble.fillRect(x!, y!, w!, h!);
+      rubble.lineStyle(2, 0x8a927b, 0.6);
+      rubble.strokeRect(x!, y!, w!, h!);
+    }
+
     this.particles = this.add
       .particles(0, 0, 'mote', {
         x: { min: 0, max: WORLD.width },
@@ -128,6 +166,93 @@ export class OpeningScene extends Phaser.Scene {
     this.ready = true;
     this.resizeWorld();
     this.onReady();
+  }
+  private createInterior(): void {
+    this.cameras.main.setOrigin(0, 0);
+    const r = ROOMS[this.model.room];
+    createCharacterTexture(this);
+    this.physics.world.setBounds(30, 0, r.width - 60, r.floor + 200);
+    this.traveller = new Player(this);
+    this.traveller.resetAt(this.model.player);
+    this.silhouette = new Shadow(this);
+    this.staticBody(r.width / 2, r.floor + 40, r.width, 80);
+    if (this.model.room === 'shelter-lower')
+      for (const { left, top } of LOWER_STEPS) {
+        this.staticBody(
+          left + (r.width - left) / 2,
+          top + (1300 - top) / 2,
+          r.width - left,
+          1300 - top,
+        );
+      }
+    if (this.model.room === 'service-passage')
+      for (const x of SERVICE_OBSTACLES) this.staticBody(x, 680, 70, 40);
+    this.interior = new RoomView(this, this.model);
+    this.controls = new GameInput(this, this.model);
+    this.input.on('pointerdown', (p: Phaser.Input.Pointer) => {
+      if (!this.model.paused && !this.model.sequence)
+        this.model.walkTarget = this.cameras.main.getWorldPoint(p.x, p.y).x;
+    });
+    this.ready = true;
+    this.onReady();
+  }
+  private updateInterior(delta: number): void {
+    const m = this.model,
+      roomId = m.room,
+      r = ROOMS[roomId],
+      dt = Math.min(delta / 1000, 0.04);
+    const active = m.started && !m.paused && !m.inTitle;
+    if (active && !m.sequence) {
+      this.physics.world.resume();
+      let axis = this.controls.axis;
+      if (axis) m.walkTarget = null;
+      if (m.walkTarget !== null) {
+        axis =
+          Math.abs(m.walkTarget - this.traveller.x) < 8
+            ? 0
+            : Math.sign(m.walkTarget - this.traveller.x);
+        if (!axis) m.walkTarget = null;
+      }
+      this.traveller.drive(dt, this.controls.consume(axis), m.events, m.time);
+      m.player = this.traveller.sample();
+    } else {
+      this.physics.world.pause();
+      this.controls.clear();
+      if (m.sequence) this.traveller.body.setVelocity(0, 0);
+    }
+    if (active) m.update(dt);
+    if (m.room !== roomId) return;
+    this.traveller.setVisible(m.sequence !== 'memory');
+    this.silhouette.setVisible(m.sequence !== 'memory');
+    this.silhouette.present(m);
+    if (m.sequence === 'ending') {
+      this.traveller.anims.stop();
+      this.traveller.setFrame(CHAPTER_POSE.reach).setScale(1, 0.7);
+    } else this.traveller.setScale(1);
+    if (active) {
+      this.traveller.anims.resume();
+      this.silhouette.anims.resume();
+    }
+    if (m.reducedMotion && this.traveller.anims.currentAnim?.key === 'traveller-idle')
+      this.traveller.anims.pause();
+    if (!active) {
+      this.traveller.anims.pause();
+      this.silhouette.anims.pause();
+    }
+    const c = this.cameras.main;
+    const zoom =
+      (this.scale.height / 900) * (this.scale.width / this.scale.height < 0.85 ? 0.7 : 1);
+    c.setZoom(zoom);
+    const w = this.scale.width / zoom,
+      h = this.scale.height / zoom;
+    c.scrollX = clamp(
+      (m.sequence === 'memory' ? 800 : this.traveller.x) - w * 0.42,
+      0,
+      Math.max(0, r.width - w),
+    );
+    c.scrollY = this.traveller.y - h * 0.72;
+    this.interior?.update();
+    this.onFrame();
   }
 
   private staticBody(x: number, y: number, width: number, height: number): Phaser.GameObjects.Zone {
@@ -181,11 +306,16 @@ export class OpeningScene extends Phaser.Scene {
   }
 
   update(_time: number, delta: number): void {
+    if (this.interior) {
+      this.updateInterior(delta);
+      return;
+    }
     if (!this.ready) return;
     const dt = Math.min(delta / 1000, 0.04),
       model = this.model;
     const active = model.started && !model.paused && !model.inTitle;
-    const physicsActive = active && (model.mode === 'walk' || model.mode === 'approach-lamp');
+    const physicsActive =
+      active && !model.sequence && (model.mode === 'walk' || model.mode === 'approach-lamp');
     if (physicsActive) {
       this.physics.world.resume();
       this.traveller.body.enable = true;
